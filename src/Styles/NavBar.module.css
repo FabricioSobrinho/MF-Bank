@@ -1,0 +1,51 @@
+.mainNavBar {
+  position: fixed;
+  top: 0;
+
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+
+  height: 8rem;
+
+  display: flex;
+  background: #141414;
+}
+.leftNavBar,
+.rightNavBar {
+  display: flex;
+
+  width: 50%;
+}
+
+.leftNavBar {
+  padding: 0 5%;
+  font-size: 3rem;
+  font-weight: 600;
+}
+.rightNavBar {
+  justify-content: flex-end;
+  padding: 0 5%;
+
+}
+
+.rightNavBar > button {
+  width: 19rem;
+  height: 5rem;
+  flex-shrink: 0;
+
+  background: #2d3136;
+  color: #f0f8ff;
+
+  border: inset #848484 0.2rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  transition: 0.4s;
+}
+
+.rightNavBar > button:hover {
+  background: #23262a;
+  transition: 0.4s;
+}
