@@ -14,6 +14,13 @@
   width: 50vw;
   height: 100%;
 }
+
+.initialLeftPage {
+  background: #222225;
+}
+.initialRightPage {
+  background: #28282d;
+}
 .text {
   display: flex;
   flex-direction: column;
