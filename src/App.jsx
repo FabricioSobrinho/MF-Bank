@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import pages
 import InitialScreen from "./Pages/InitialScreen";
+import LoginScreen from "./Pages/LoginScreen";
 
 // import container
 import Container from "./Layouts/Components/Container";
@@ -19,6 +20,7 @@ function App() {
         <Container>
           <Routes>
             <Route exact element={<InitialScreen />} path="/" />
+            <Route exact element={<LoginScreen />} path="/login" />
           </Routes>
         </Container>
       </Router>
