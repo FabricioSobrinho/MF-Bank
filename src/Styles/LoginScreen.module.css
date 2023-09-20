@@ -1,0 +1,72 @@
+.mainLoginPage {
+  display: flex;
+
+  align-items: center;
+  height: 100vh;
+  padding: 0 3%;
+}
+.leftLoginScreen,
+.rightLoginScreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50vw;
+}
+.leftLoginScreen {
+  margin-top: 6%;
+}
+.leftLoginScreen > img {
+  width: 87.5%;
+}
+
+.rightLoginScreen {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  background: #202020;
+}
+
+.boxForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.boxForm > h1 {
+  color: #f0f8ff;
+  text-transform: uppercase;
+
+  font-size: 3.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  text-align: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+
+.createACcountRedirect > p {
+  margin: 1.5rem;
+  color: #f0f8ff;
+
+  font-size: 1.7rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.createACcountRedirect > p > a {
+  transition: 0.3s;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+}
+.createACcountRedirect > p > a:hover {
+  color: #898888;
+}
