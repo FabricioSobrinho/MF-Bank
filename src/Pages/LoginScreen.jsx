@@ -15,8 +15,20 @@ function LoginScreen() {
         <div className={styles.boxForm}>
           <h1>Entre</h1>
           <div className={styles.loginForm}>
-            <InputInsertData text="Nome" type="text" name="name" />
-            <InputInsertData text="Senha" type="password" name="pass" />
+            <InputInsertData
+              text="Nome"
+              type="text"
+              name="name"
+              widthInput={70}
+              heighInput={30}
+            />
+            <InputInsertData
+              text="Senha"
+              type="password"
+              name="pass"
+              widthInput={70}
+              heighInput={30}
+            />
             <InputButton text="Entrar" />
           </div>
           <div className={styles.createACcountRedirect}>
