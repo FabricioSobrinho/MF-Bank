@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 // eslint-disable-next-line react/prop-types
-function InputInsertData({text}) {
+function InputInsertData({text, widthInput, heighInput}) {
   const InputInsertData = styled.input`
-    width: 80%;
-    height: 30%;
+    width: ${widthInput}%;
+    height: ${heighInput}%;
     background: #474747;
     padding: 2%;
 
