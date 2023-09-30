@@ -1,0 +1,46 @@
+.mainCreateAccountPage {
+  display: flex;
+  height: 100vh;
+}
+.leftCreateAccountScreen,
+.rightCreateAccountScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.leftCreateAccountScreen > img {
+  width: 75%;
+  margin-top: 8%;
+}
+
+.rightCreateAccountScreenContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  background: #272727;
+}
+
+.rightCreateAccountScreenContainer > h1 {
+  color: #f0f8ff;
+  font-family: Inter;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 20%;
+}
