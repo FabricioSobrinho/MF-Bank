@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // eslint-disable-next-line react/prop-types
 function InputInsertData({ text, heightInput, widthInput }) {
-  const InputInsertData = styled.button`
+  const InputInsertData = styled.input`
   height: ${heightInput}rem;
   width: ${widthInput}rem;
   background: #474747;
