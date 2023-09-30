@@ -6,14 +6,14 @@ function InputInsertData({ text, heightInput, widthInput }) {
   height: ${heightInput}rem;
   width: ${widthInput}rem;
   background: #474747;
-  padding: 2%;
+  padding: 1%;
 
   outline: none;
   border: none;
   border-radius: 0.3125rem;
 
   font-size: 1.7rem;
-  margin: 2rem;
+  margin: 1rem 2rem;
   box-shadow: 0px 0px 40px -15px #000000;
   `;
   return <InputInsertData placeholder={text}/>
