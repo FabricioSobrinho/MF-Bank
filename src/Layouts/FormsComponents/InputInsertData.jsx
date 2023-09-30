@@ -1,17 +1,22 @@
-import styles from "../../Styles/InputInsertData.module.css";
+import styled from "styled-components";
 
 // eslint-disable-next-line react/prop-types
-function InputInsertData({ type, text, name }) {
-  return (
-    <>
-      <input
-        type={type}
-        className={styles.input}
-        placeholder={text}
-        name={name}
-      />
-    </>
-  );
+function InputInsertData({ text, heightInput, widthInput }) {
+  const InputInsertData = styled.button`
+  height: ${heightInput}rem;
+  width: ${widthInput}rem;
+  background: #474747;
+  padding: 2%;
+
+  outline: none;
+  border: none;
+  border-radius: 0.3125rem;
+
+  font-size: 1.7rem;
+  margin: 2rem;
+  box-shadow: 0px 0px 40px -15px #000000;
+  `;
+  return <InputInsertData placeholder={text}/>
 }
 
 export default InputInsertData;
