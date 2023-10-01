@@ -11,9 +11,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Container from "./Layouts/Components/Container";
 
 // Import pages
-import InitialScreen from "./Pages/InitialScreen";
-import LoginScreen from "./Pages/LoginScreen";
-import CreateAccountScreen from "./Pages/CreateAccountScreen";
+import InitialScreen from "./Pages/InitialPage";
+import LoginScreen from "./Pages/LoginPage";
+import CreateAccountScreen from "./Pages/CreateAccountPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)

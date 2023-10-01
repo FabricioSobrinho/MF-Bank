@@ -1,4 +1,4 @@
-import styles from "../Styles/LoginScreen.module.css";
+import styles from "../Styles/LoginPage.module.css";
 
 import loginScreenImage from "../assets/Images/login-screen-image.svg";
 

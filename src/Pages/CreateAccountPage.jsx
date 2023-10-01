@@ -1,4 +1,4 @@
-import styles from "../Styles/CreateAccountScreen.module.css";
+import styles from "../Styles/CreateAccountPage.module.css";
 
 import createAccountImage from "../assets/Images/create-account-screen-image.svg";
 

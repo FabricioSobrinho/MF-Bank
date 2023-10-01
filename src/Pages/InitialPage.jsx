@@ -2,7 +2,7 @@
 import initialScreenImage from "../assets/Images/initial-screen-image.svg";
 
 // import styles to the page
-import styles from "../Styles/InitialScreen.module.css";
+import styles from "../Styles/InitialPage.module.css";
 
 // import elements to the page
 import Button from "../Layouts/FormsComponents/Button";
