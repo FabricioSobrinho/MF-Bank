@@ -14,6 +14,7 @@ import Container from "./Layouts/Components/Container";
 import InitialScreen from "./Pages/InitialPage";
 import LoginScreen from "./Pages/LoginPage";
 import CreateAccountScreen from "./Pages/CreateAccountPage";
+import ViewAccountPage from "./Pages/ViewAccountPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -27,6 +28,7 @@ function App() {
             <Route exact element={<InitialScreen />} path="/" />
             <Route exact element={<LoginScreen />} path="/login" />
             <Route exact element={<CreateAccountScreen />} path="/create-acc" />
+            <Route exact element={<ViewAccountPage />} path="/view-account" />
           </Routes>
         </Container>
       </Router>
