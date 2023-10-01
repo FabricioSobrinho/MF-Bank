@@ -19,17 +19,17 @@ function LoginScreen() {
               text="Nome"
               type="text"
               name="name"
-              widthInput={70}
-              heighInput={30}
+              widthInput={32}
+              heightInput={5}
             />
             <InputInsertData
               text="Senha"
               type="password"
               name="pass"
-              widthInput={70}
-              heighInput={30}
+              widthInput={32}
+              heightInput={5}
             />
-            <InputButton text="Entrar" />
+            <InputButton text="Entrar" heightButton={4.5} widthButton={20} />
           </div>
           <div className={styles.createACcountRedirect}>
             <hr />
