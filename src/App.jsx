@@ -1,7 +1,9 @@
 // import react functions
-
+import { useState } from "react";
 // import elements and icos
 import NavBar from "./Layouts/Components/NavBar";
+import LoggedNavBar from "./Layouts/Components/LoggedNavBar";
+
 // import extras dependencies
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -14,10 +16,12 @@ import LoginScreen from "./Pages/LoginScreen";
 import CreateAccountScreen from "./Pages/CreateAccountScreen";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   return (
     <>
       <Router>
-        <NavBar />
+        {isLoggedIn ? <LoggedNavBar />:<NavBar /> } 
         <Container>
           <Routes>
             <Route exact element={<InitialScreen />} path="/" />
