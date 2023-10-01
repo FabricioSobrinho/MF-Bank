@@ -1,0 +1,48 @@
+.mainViewAccountPage {
+  display: flex;
+  height: 100vh;
+}
+
+.leftViewAccountPage,
+.rightViewAccountPage {
+  display: flex;
+  width: 50%;
+}
+
+.leftViewAccountPage {
+  align-items: center;
+  flex-direction: column;
+  background-color: #202020;
+}
+
+.accInfo,
+.accLastActions {
+  width: 95%;
+  padding: 2%;
+  background: #272727;
+}
+.accInfo {
+  margin-top: 20%;
+}
+.accLastActions {
+  margin-top: 8%;
+}
+.rightViewAccountPage {
+  align-items: center;
+  justify-content: center;
+}
+.accMenu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.menuTitle {
+  margin-top: 20%;
+  text-align: center;
+}
+.menuButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 5%;
+}
