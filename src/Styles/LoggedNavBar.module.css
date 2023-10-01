@@ -1,0 +1,22 @@
+.mainLoggedNavBar {
+  position: fixed;
+  top: 0;
+
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+
+  height: 8rem;
+
+  display: flex;
+  background: #141414;
+}
+a {
+    color: #f0f8ff;
+    font-size: 3.125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    text-decoration: none;
+}
