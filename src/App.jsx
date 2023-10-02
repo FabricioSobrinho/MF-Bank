@@ -18,8 +18,8 @@ import ViewAccountPage from "./Pages/ViewAccountPage";
 import WithdrawPage from "./Pages/WithdrawPage";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  setIsLoggedIn(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <>
       <Router>
