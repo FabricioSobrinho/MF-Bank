@@ -18,7 +18,6 @@ function WithdrawPage() {
             heightInput={4.5}
             widthInput={29}
           />
-          <InputButton text="Confirmar" heightButton={5} widthButton={15} />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
           <hr />
