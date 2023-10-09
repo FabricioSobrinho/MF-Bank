@@ -34,7 +34,7 @@ function LoginScreen() {
           <div className={styles.createACcountRedirect}>
             <hr />
             <p>
-              Ainda não é cliente? <a href="#">Crie uma conta conosco</a> !{" "}
+              Ainda não é cliente?<a href="#">Crie uma conta conosco</a> !
             </p>
           </div>
         </div>

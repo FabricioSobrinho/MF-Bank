@@ -51,22 +51,11 @@
   align-items: center;
 }
 
-.createACcountRedirect > p {
-  margin: 1.5rem;
-  color: #f0f8ff;
-
+.createACcountRedirect a, .createACcountRedirect p {
+  margin: .5rem;
   font-size: 1.7rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  transition: .3s;
 }
-
-.createACcountRedirect > p > a {
-  transition: 0.3s;
-  text-decoration: none;
-  font-weight: bold;
-  color: #fff;
-}
-.createACcountRedirect > p > a:hover {
+.createACcountRedirect a:hover {
   color: #898888;
 }
