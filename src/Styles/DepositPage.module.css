@@ -1,0 +1,103 @@
+.MainDepositPage {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.leftDepositScreen,
+.rightDepositScreen {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 50%;
+}
+
+.leftDepositScreen {
+  align-items: center;
+}
+
+.topLeftDepositScreen {
+  margin-top: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.topLeftDepositScreen > label {
+  color: #f0f8ff;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.topLeftDepositScreen > hr {
+  width: 100%;
+  margin: 2%;
+}
+.notEnoughBalance,
+.EnoughBalance {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.8rem;
+  width: 27rem;
+}
+
+.EnoughBalance {
+  background-color: #003b26;
+}
+.notEnoughBalance {
+  background-color: #3b000e;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+}
+.checkbox > input[type="checkbox"] {
+  width: 2.15rem;
+  height: 2.15rem;
+  margin: 0.5rem;
+  border: none;
+  outline: none;
+}
+
+.checkbox > input[type="checkbox"]:hover {
+  background: #808080;
+}
+.bottomLeftDepositScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bottomLeftDepositScreen > label {
+  color: #f0f8ff;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.rightDepositScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #202020;
+}
+.newBalanceView {
+  height: 30%;
+  width: 95%;
+  margin-top: 20%;
+  margin-bottom: 30%;
+  background: #272727;
+}
+
+.newBalanceView > p {
+  padding: 4%;
+  color: #f0f8ff;
+  font-size: 1.9rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
