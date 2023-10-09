@@ -16,6 +16,7 @@ import LoginPage from "./Pages/LoginPage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
 import ViewAccountPage from "./Pages/ViewAccountPage";
 import WithdrawPage from "./Pages/WithdrawPage";
+import DepositPage from "./Pages/DepositPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -31,6 +32,7 @@ function App() {
             <Route exact element={<CreateAccountPage />} path="/create-acc" />
             <Route exact element={<ViewAccountPage />} path="/view-account" />
             <Route exact element={<WithdrawPage />} path="/withdraw" />
+            <Route exact element={<DepositPage />} path="/deposit" />
           </Routes>
         </Container>
       </Router>
