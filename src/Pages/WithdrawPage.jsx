@@ -1,7 +1,7 @@
 // import styles
 import styles from "../Styles/WithdrawPage.module.css";
 
-// import components 
+// import components
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 
@@ -10,22 +10,35 @@ function WithdrawPage() {
     <div className={styles.MainWithdrawPage}>
       <div className={styles.leftWithdrawScreen}>
         <div className={styles.topLeftWithdrawScreen}>
-          <label htmlFor="Quantia do saque">
+          <label htmlFor="withdrawMontant">
             Insira a quantia que deseja sacar:{" "}
           </label>
           <InputInsertData
             text="Quantia do saque"
             heightInput={4.5}
             widthInput={29}
+            type="number"
+            name="withdrawMontant"
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
           <hr />
         </div>
         <div className={styles.bottomLeftWithdrawScreen}>
-          <label htmlFor="Senha">Insira a sua senha: </label>
-          <InputInsertData text="Senha" heightInput={4.5} widthInput={29} />
-          <InputButton text="Confirmar" heightButton={5} widthButton={15} />
+          <label htmlFor="withdrawPass">Insira a sua senha: </label>
+          <InputInsertData
+            text="Senha"
+            heightInput={4.5}
+            widthInput={29}
+            type="password"
+            name="withdrawPass"
+          />
+          <InputButton
+            text="Confirmar"
+            heightButton={5}
+            widthButton={15}
+            name="cofirmWithdraw"
+          />
         </div>
       </div>
       <div className={styles.rightWithdrawScreen}>

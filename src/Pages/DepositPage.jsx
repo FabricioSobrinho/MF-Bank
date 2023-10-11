@@ -10,13 +10,14 @@ function DepositPage() {
     <div className={styles.MainDepositPage}>
       <div className={styles.leftDepositScreen}>
         <div className={styles.topLeftDepositScreen}>
-          <label htmlFor="Quantia do saque">
-            Insira a quantia que deseja depositar:{" "}
+          <label htmlFor="depositMontant">
+            Insira a quantia que deseja depositar:
           </label>
           <InputInsertData
-            text="Quantia do saque"
+            text="Quantia do deposito"
             heightInput={4.5}
             widthInput={29}
+            name="depositMontant"
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
@@ -28,8 +29,14 @@ function DepositPage() {
           <hr />
         </div>
         <div className={styles.bottomLeftDepositScreen}>
-          <label htmlFor="Senha">Insira a sua senha: </label>
-          <InputInsertData text="Senha" heightInput={4.5} widthInput={29} />
+          <label htmlFor="depositPass">Insira a sua senha: </label>
+          <InputInsertData
+            text="Senha"
+            heightInput={4.5}
+            widthInput={29}
+            type="password"
+            name="depositPass"
+          />
           <InputButton text="Confirmar" heightButton={5} widthButton={15} />
         </div>
       </div>

@@ -1,7 +1,7 @@
 // import styles
 import styles from "../Styles/TransferPage.module.css";
 
-// import components 
+// import components
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 
@@ -10,29 +10,35 @@ function TransferPage() {
     <div className={styles.MainTransferPage}>
       <div className={styles.leftTransferScreen}>
         <div className={styles.topLeftTransferScreen}>
-          <label htmlFor="Quantia do saque">
+          <label htmlFor="transferOriginAcc">
             Insira a quantia que deseja transferir:{" "}
           </label>
           <InputInsertData
             text="Quantia da transferêcia"
             heightInput={4.5}
             widthInput={29}
+            name="transferOriginAcc"
           />
-          <label htmlFor="Nome do favorecido">
-            Insira o nome do favorecido:{" "}
-          </label>
+          <label htmlFor="favTransferName">Insira o nome do favorecido: </label>
           <InputInsertData
             text="Nome do favorecido"
             heightInput={4.5}
             widthInput={29}
+            name="favTransferName"
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
           <hr />
         </div>
         <div className={styles.bottomLeftTransferScreen}>
-          <label htmlFor="Senha">Insira a sua senha: </label>
-          <InputInsertData text="Senha" heightInput={4.5} widthInput={29} />
+          <label htmlFor="transferPass">Insira a sua senha: </label>
+          <InputInsertData
+            text="Senha"
+            heightInput={4.5}
+            widthInput={29}
+            type="password"
+            name="transferPass"
+          />
           <InputButton text="Confirmar" heightButton={5} widthButton={15} />
         </div>
       </div>

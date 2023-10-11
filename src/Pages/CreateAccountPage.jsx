@@ -15,31 +15,67 @@ function CreateAccountScreen() {
         <div className={styles.rightCreateAccountScreenContainer}>
           <div className={styles.form}>
             <h1>INSIRA SEUS DADOS</h1>
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="Nome" />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="Nome"
+              name="name"
+            />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
               text="Sobrenome"
+              name="surname"
             />
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="Email" />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="Email"
+              name="email"
+            />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
               text="Telefone"
+              name="phoneNumber"
             />
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="UF" />
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="CEP" />
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="CPF" />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="UF"
+              name="uf"
+            />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="CEP"
+              name="cep"
+            />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="CPF"
+              name="cpf"
+            />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
               text="Cidade"
+              name="city"
             />
-            <InputInsertData heightInput={4.2} widthInput={22.5} text="Senha" />
+            <InputInsertData
+              heightInput={4.2}
+              widthInput={22.5}
+              text="Senha"
+              type="password"
+              name="userPass"
+            />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
               text="Confirmar senha"
+              type="password"
+              name="userPassConfirm"
             />
 
             <InputButton
