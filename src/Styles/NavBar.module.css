@@ -10,6 +10,8 @@
 
   display: flex;
   background: #141414;
+
+  z-index: 9999;
 }
 .leftNavBar,
 .rightNavBar {
