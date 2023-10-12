@@ -1,0 +1,15 @@
+.accountMovement {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  border-left: 1px #545454 solid;
+  padding: 1%;
+  font-size: 1.7rem;
+  margin: 1%;
+}
+
+.accountMovement > span {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
