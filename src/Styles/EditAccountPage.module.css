@@ -1,0 +1,23 @@
+.mainEditAccountPage {
+    display: flex;
+    justify-content: center;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 63rem;
+    height: 100vh;
+    background: #202020;
+}
+
+.title {
+    margin-top: 10%;
+}
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
