@@ -18,6 +18,8 @@ function TransferPage() {
             heightInput={4.5}
             widthInput={29}
             name="transferOriginAcc"
+            mask="999.999.999.999.99"
+            required
           />
           <label htmlFor="favTransferName">Insira o nome do favorecido: </label>
           <InputInsertData
@@ -25,6 +27,7 @@ function TransferPage() {
             heightInput={4.5}
             widthInput={29}
             name="favTransferName"
+            required
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
@@ -38,6 +41,7 @@ function TransferPage() {
             widthInput={29}
             type="password"
             name="transferPass"
+            required
           />
           <InputButton text="Confirmar" heightButton={5} widthButton={15} />
         </div>

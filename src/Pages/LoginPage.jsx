@@ -21,6 +21,7 @@ function LoginScreen() {
               name="name"
               widthInput={32}
               heightInput={5}
+              required
             />
             <InputInsertData
               text="Senha"
@@ -28,6 +29,7 @@ function LoginScreen() {
               name="pass"
               widthInput={32}
               heightInput={5}
+              required
             />
             <InputButton text="Entrar" heightButton={4.5} widthButton={20} />
           </div>

@@ -18,6 +18,10 @@ function DepositPage() {
             heightInput={4.5}
             widthInput={29}
             name="depositMontant"
+            // type="number"
+            mask="999.999.999.999.99"
+            maskChar=""
+            required
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
@@ -36,6 +40,7 @@ function DepositPage() {
             widthInput={29}
             type="password"
             name="depositPass"
+            required
           />
           <InputButton text="Confirmar" heightButton={5} widthButton={15} />
         </div>

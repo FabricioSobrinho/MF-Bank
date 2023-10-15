@@ -19,6 +19,8 @@ function WithdrawPage() {
             widthInput={29}
             type="number"
             name="withdrawMontant"
+            mask="999.999.999.999.99"
+            required
           />
           <div className={styles.EnoughBalance}>Saldo suficiente</div>
           <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
@@ -32,6 +34,7 @@ function WithdrawPage() {
             widthInput={29}
             type="password"
             name="withdrawPass"
+            required
           />
           <InputButton
             text="Confirmar"
