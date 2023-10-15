@@ -2,13 +2,25 @@ import styled from "styled-components";
 import { BsEyeSlash, BsEye } from "react-icons/bs";
 import { useState, useRef } from "react";
 
+import InputMask from "react-input-mask";
+
 // eslint-disable-next-line react/prop-types
-function InputInsertData({ text, heightInput, widthInput, name, type }) {
+function InputInsertData({
+  text,
+  heightInput,
+  widthInput,
+  name,
+  type,
+  mask,
+  maskChar,
+  required,
+}) {
   const [showingPass, setShowingPass] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
   const isPassField = type === "password";
   const inputField = useRef(null);
 
-  const InputInsertDataStyled = styled.input`
+  const InputInsertDataStyled = styled(InputMask)`
     height: ${heightInput}rem;
     width: ${widthInput}rem;
     background: #474747;
@@ -25,9 +37,16 @@ function InputInsertData({ text, heightInput, widthInput, name, type }) {
     setShowingPass(!showingPass);
   };
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
   return (
     <>
       <InputInsertDataStyled
+        required={required ? "required" : null}
+        mask={mask ? mask : ""}
+        maskChar={maskChar}
         placeholder={text}
         id={name}
         type={showingPass ? "text" : type}
@@ -36,9 +55,18 @@ function InputInsertData({ text, heightInput, widthInput, name, type }) {
         onChange={(e) => {
           if (inputField.current) {
             inputField.current.value = e.target.value;
+
+            if (type == "email") {
+              const isEmailValid = isValidEmail(inputField.current.value);
+
+              if (isEmailValid) {
+                setValidEmail(true);
+              }
+            }
           }
         }}
       />
+
       {isPassField && (
         <label htmlFor={name} onClick={changePassVisibility}>
           {showingPass ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
