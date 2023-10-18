@@ -6,6 +6,7 @@ import styles from "../Styles/InitialPage.module.css";
 
 // import elements to the page
 import Button from "../Layouts/FormsComponents/Button";
+import CookiesAllow from "../Layouts/Components/CookiesAllow";
 
 function InitialScreen() {
   return (
@@ -23,6 +24,7 @@ function InitialScreen() {
       <div className={styles.initialRightPage}>
         <img src={initialScreenImage} alt="Savings ico" />
       </div>
+      <CookiesAllow />
     </div>
   );
 }
