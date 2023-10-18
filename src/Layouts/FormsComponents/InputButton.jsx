@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 // eslint-disable-next-line react/prop-types
-function InputButton({ text, widthButton, heightButton }) {
+function InputButton({ text, widthButton, heightButton, handleClick }) {
   const InputButton = styled.button`
     height: ${heightButton}rem;
     width: ${widthButton}rem;
@@ -23,7 +23,7 @@ function InputButton({ text, widthButton, heightButton }) {
       cursor: pointer;
     }
   `;
-  return <InputButton>{text}</InputButton>;
+  return <InputButton onClick={handleClick}>{text}</InputButton>;
 }
 
 export default InputButton;
