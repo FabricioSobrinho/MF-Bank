@@ -28,7 +28,7 @@ function App() {
   return (
     <>
       <Router>
-        {isLoggedIn ? <LoggedNavBar />:<NavBar /> } 
+        {isLoggedIn ? <LoggedNavBar /> : <NavBar />}
         <Container>
           <Routes>
             <Route exact element={<InitialPage />} path="/" />
