@@ -42,5 +42,11 @@
   justify-content: center;
   align-items: center;
 
-  margin-top: 20%;
+  margin-top: 5%;
+}
+.error {
+  background: #ff00008f;
+  padding: 1%;
+  width: 70%;
+  text-align: center;
 }

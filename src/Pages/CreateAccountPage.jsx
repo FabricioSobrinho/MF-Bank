@@ -5,7 +5,65 @@ import createAccountImage from "../assets/Images/create-account-screen-image.svg
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import Errors from "../Layouts/Components/Errors";
+
+import { cpf } from "cpf-cnpj-validator";
+
 function CreateAccountScreen() {
+  const [errors, setErrors] = useState([]);
+
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+    password_confirmation: "",
+    name: "",
+    sur_name: "",
+    phone_number: "",
+    cpf: "",
+    uf: "",
+    cep: "",
+    date_birth: "",
+  });
+
+  const setInputValue = (e) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const validCpf = cpf.isValid(userData.cpf);
+
+  const sentAccount = async () => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/auth",
+        userData,
+        config
+      );
+      console.log("Usuário criado com sucesso:", response.status);
+
+      if (response.status === 200) navigate("/acc-confirmation");
+    } catch (error) {
+      console.error(
+        "Erro ao criar usuário:",
+        error.response.data.errors.full_messages
+      );
+      setErrors([error.response.data.errors.full_messages]);
+    }
+  };
 
   return (
     <div className={styles.mainCreateAccountPage}>
@@ -15,37 +73,47 @@ function CreateAccountScreen() {
       <div className={styles.rightCreateAccountScreen}>
         <div className={styles.rightCreateAccountScreenContainer}>
           <div className={styles.form}>
-            <h1>INSIRA SEUS DADOS</h1>
+            {errors.length > 0 && <Errors errors={errors} />}
+            <div style={{ textAlign: "center" }}>
+              <h1>INSIRA SEUS DADOS</h1>
+              <p>* campos obrigatórios</p>
+            </div>
+
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Nome"
+              text="Nome *"
               name="name"
               required
+              handleChange={setInputValue}
+              value={userData.name ? userData.name : ""}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Sobrenome"
-              name="surname"
+              text="Sobrenome *"
+              name="sur_name"
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Email"
+              text="Email *"
               name="email"
               type="email"
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Telefone"
-              name="phoneNumber"
+              text="Telefone *"
+              name="phone_number"
               mask="(99) 9 9999-9999"
               maskChar=""
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
@@ -53,6 +121,7 @@ function CreateAccountScreen() {
               text="UF"
               name="uf"
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
@@ -60,45 +129,67 @@ function CreateAccountScreen() {
               text="CEP"
               name="cep"
               mask="99999-999"
+              maskChar=""
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="CPF"
+              text="CPF *"
               name="cpf"
               mask="999.999.999-99"
+              maskChar=""
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Cidade"
-              name="city"
+              text="data de nascimento"
+              name="date_birth"
+              mask={"99/99/9999"}
+              maskChar={""}
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Senha"
+              text="Senha *"
               type="password"
-              name="userPass"
+              name="password"
               required
+              handleChange={setInputValue}
             />
             <InputInsertData
               heightInput={4.2}
               widthInput={22.5}
-              text="Confirmar senha"
+              text="Confirmar senha *"
               type="password"
-              name="userPassConfirm"
+              name="password_confirmation"
               required
+              handleChange={setInputValue}
             />
 
-            <InputButton
-              heightButton={5.5}
-              widthButton={23}
-              text={"CRIAR CONTA"}
-            />
+            {userData.cpf &&
+              userData.email &&
+              userData.name &&
+              userData.password &&
+              userData.password_confirmation &&
+              userData.sur_name &&
+              userData.password === userData.password_confirmation &&
+              userData.password.length >= 8 &&
+              validCpf && (
+                <InputButton
+                  heightButton={5.5}
+                  widthButton={23}
+                  text={"CRIAR CONTA"}
+                  handleClick={sentAccount}
+                />
+              )}
+
+            {!validCpf && <p className={styles.error}>Insira um cpf válido.</p>}
           </div>
         </div>
       </div>
