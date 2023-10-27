@@ -6,7 +6,7 @@ function AccConfirmation() {
     justifyContent: "center",
     alignItems: "center",
     fontSize: `3rem`,
-    padding: `4rem`
+    padding: `20rem`
   };
 
   return (
