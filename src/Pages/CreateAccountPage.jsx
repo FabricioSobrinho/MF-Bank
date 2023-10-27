@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import Errors from "../Layouts/Components/Errors";
 
 import { cpf } from "cpf-cnpj-validator";
+import ValidationErrors from "../Layouts/Components/ValidationErrors";
 
 function CreateAccountScreen() {
   const [errors, setErrors] = useState([]);
@@ -39,6 +40,38 @@ function CreateAccountScreen() {
   };
 
   const validCpf = cpf.isValid(userData.cpf);
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const validEmail = isValidEmail(userData.email);
+
+  const validPassConfirmation =
+    userData.password === userData.password_confirmation ? true : false;
+
+  const validPass = userData.password.length >= 8 ? true : false;
+
+  const validPhoneNumber =
+    userData.phone_number[15] !== undefined && userData.phone_number[1] !== '0';
+
+  const isValidBirthDate = (birthDate) => {
+    birthDate = userData.date_birth.split("/")
+
+    let now_date = new Date
+
+    let born_year = birthDate[2]
+
+    if (born_year > now_date.getFullYear()) {
+
+      return false
+    } else {
+      return true
+    }
+  }
+
+  const validBirthDate = isValidBirthDate(userData.birthDate)
 
   const sentAccount = async () => {
     const config = {
@@ -80,7 +113,7 @@ function CreateAccountScreen() {
             </div>
 
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Nome *"
               name="name"
@@ -89,7 +122,7 @@ function CreateAccountScreen() {
               value={userData.name ? userData.name : ""}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Sobrenome *"
               name="sur_name"
@@ -97,7 +130,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Email *"
               name="email"
@@ -106,7 +139,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Telefone *"
               name="phone_number"
@@ -116,7 +149,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="UF"
               name="uf"
@@ -124,7 +157,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="CEP"
               name="cep"
@@ -134,7 +167,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="CPF *"
               name="cpf"
@@ -144,7 +177,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="data de nascimento"
               name="date_birth"
@@ -154,7 +187,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Senha *"
               type="password"
@@ -163,7 +196,7 @@ function CreateAccountScreen() {
               handleChange={setInputValue}
             />
             <InputInsertData
-              heightInput={4.2}
+              heightInput={4}
               widthInput={22.5}
               text="Confirmar senha *"
               type="password"
@@ -178,6 +211,7 @@ function CreateAccountScreen() {
               userData.password &&
               userData.password_confirmation &&
               userData.sur_name &&
+              validPhoneNumber &&
               userData.password === userData.password_confirmation &&
               userData.password.length >= 8 &&
               validCpf && (
@@ -189,7 +223,14 @@ function CreateAccountScreen() {
                 />
               )}
 
-            {!validCpf && <p className={styles.error}>Insira um cpf válido.</p>}
+            <ValidationErrors
+              // emailErr={!validEmail}
+              // cpfErr={!validCpf}
+              // passConfirmErr={!validPassConfirmation}
+              // passErr={!validPass}
+              // birthDateErr={!validBirthDate}
+              userData={userData}
+            />
           </div>
         </div>
       </div>

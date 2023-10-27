@@ -9,16 +9,19 @@
   align-items: center;
   width: 50%;
 }
-
+.rightCreateAccountScreen {
+  height: 115vh;
+}
 .leftCreateAccountScreen > img {
-  width: 75%;
-  margin-top: 8%;
+  position: fixed;
+  width: 35%;
+  margin-top: 2%;
 }
 
 .rightCreateAccountScreenContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   height: 100%;
@@ -29,24 +32,18 @@
 
 .rightCreateAccountScreenContainer > h1 {
   color: #f0f8ff;
-  font-family: Inter;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
 
 .form {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
-  margin-top: 5%;
-}
-.error {
-  background: #ff00008f;
-  padding: 1%;
-  width: 70%;
-  text-align: center;
+  margin-top: 15%;
 }
