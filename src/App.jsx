@@ -21,7 +21,6 @@ import TransferPage from "./Pages/TransferPage";
 import ExtractPage from "./Pages/ExtractPage";
 import EditAccountPage from "./Pages/EditAccountPage";
 import CloseAccountPage from "./Pages/CloseAccountPage";
-import TestingFetch from "./Pages/TestingFetch";
 import AccConfirmation from "./Pages/AccConfirmation";
 
 function App() {
@@ -30,7 +29,7 @@ function App() {
   return (
     <>
       <Router>
-        {/* {isLoggedIn ? <LoggedNavBar /> : <NavBar />} */}
+        {isLoggedIn ? <LoggedNavBar /> : <NavBar />}
         <Container>
           <Routes>
             <Route exact element={<InitialPage />} path="/" />
