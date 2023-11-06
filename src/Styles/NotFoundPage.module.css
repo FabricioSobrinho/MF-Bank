@@ -1,0 +1,16 @@
+.mainNotFoundPage {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100%;
+
+}
+
+.mainNotFoundPage > img {
+  width: 40%;
+
+  margin-top: 5%;
+}
