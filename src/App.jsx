@@ -1,16 +1,16 @@
-// import react functions
-import { useState } from "react";
-// import elements and icos
-import NavBar from "./Layouts/Components/NavBar";
-import LoggedNavBar from "./Layouts/Components/LoggedNavBar";
+// import hooks
+import { LoggedProvider, useLoggedIn } from "./hooks/LoggedProvider";
+import { UserProvider } from "./hooks/UserProvider";
 
-// import extras dependencies
+// import dependencies
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// import container
+// import layout components
+import NavBar from "./Layouts/Components/NavBar";
+import LoggedNavBar from "./Layouts/Components/LoggedNavBar";
 import Container from "./Layouts/Components/Container";
 
-// Import pages
+// import pages
 import InitialPage from "./Pages/InitialPage";
 import LoginPage from "./Pages/LoginPage";
 import CreateAccountPage from "./Pages/CreateAccountPage";
@@ -24,29 +24,41 @@ import CloseAccountPage from "./Pages/CloseAccountPage";
 import AccConfirmation from "./Pages/AccConfirmation";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
   return (
-    <>
-      <Router>
-        {isLoggedIn ? <LoggedNavBar /> : <NavBar />}
-        <Container>
-          <Routes>
-            <Route exact element={<InitialPage />} path="/" />
-            <Route exact element={<LoginPage />} path="/login" />
-            <Route exact element={<CreateAccountPage />} path="/create-acc" />
-            <Route exact element={<ViewAccountPage />} path="/view-account" />
-            <Route exact element={<WithdrawPage />} path="/withdraw" />
-            <Route exact element={<DepositPage />} path="/deposit" />
-            <Route exact element={<TransferPage />} path="/transfer" />
-            <Route exact element={<ExtractPage />} path="/extract" />
-            <Route exact element={<EditAccountPage />} path="/edit" />
-            <Route exact element={<CloseAccountPage />} path="/close-account" />
-            <Route exact element={<AccConfirmation />} path="/acc-confirmation" />
-          </Routes>
-        </Container>
-      </Router>
-    </>
+    <Router>
+      <UserProvider>
+        <LoggedProvider>
+          <MainNavigation />
+          <MainContent />
+        </LoggedProvider>
+      </UserProvider>
+    </Router>
+  );
+}
+
+function MainNavigation() {
+  const { isLoggedIn } = useLoggedIn();
+
+  return <div>{isLoggedIn ? <LoggedNavBar /> : <NavBar />}</div>;
+}
+
+function MainContent() {
+  return (
+    <Container>
+      <Routes>
+        <Route path="/" element={<InitialPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/create-acc" element={<CreateAccountPage />} />
+        <Route path="/view-account" element={<ViewAccountPage />} />
+        <Route path="/withdraw" element={<WithdrawPage />} />
+        <Route path="/deposit" element={<DepositPage />} />
+        <Route path="/transfer" element={<TransferPage />} />
+        <Route path="/extract" element={<ExtractPage />} />
+        <Route path="/edit" element={<EditAccountPage />} />
+        <Route path="/close-account" element={<CloseAccountPage />} />
+        <Route path="/acc-confirmation" element={<AccConfirmation />} />
+      </Routes>
+    </Container>
   );
 }
 
