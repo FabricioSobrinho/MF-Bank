@@ -67,17 +67,13 @@ function CreateAccountScreen() {
         userData,
         config
       );
-      console.log("Usuário criado com sucesso:", response.status);
       setIsLoading(false);
 
       if (response.status === 200) navigate("/acc-confirmation");
     } catch (error) {
-      console.error(
-        "Erro ao criar usuário:",
-        error.response.data.errors.full_messages
-      );
       setErrors([error.response.data.errors.full_messages]);
       setIsLoading(false);
+
       setUserData({
         email: "",
         password: "",

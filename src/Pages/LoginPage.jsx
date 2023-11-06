@@ -13,6 +13,7 @@ import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import ValidationErrors from "../Layouts/Components/ValidationErrors";
 import Loader from "../Layouts/Components/Loader";
+import Errors from "../Layouts/Components/Errors";
 
 // import dependencies
 import axios from "axios";
@@ -21,6 +22,8 @@ import Cookies from "js-cookie";
 
 function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const [errors, setErrors] = useState([]);
 
   const { login } = useLoggedIn();
   const [loginData, setLoginData] = useState({
@@ -60,7 +63,7 @@ function LoginPage() {
       navigate("/view-account");
     } catch (error) {
       setIsLoading(false);
-      console.log("Houve um erro na autenticação" + error);
+      setErrors([["Usuario ou senha incorretos, tente novamente"]]);
     }
   };
 
@@ -74,6 +77,8 @@ function LoginPage() {
             <img src={loginScreenImage} />
           </div>
           <div className={styles.rightLoginScreen}>
+            {errors.length > 0 && <Errors errors={errors} />}
+
             <div className={styles.boxForm}>
               <h1>Entre</h1>
               <div className={styles.loginForm}>
