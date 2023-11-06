@@ -1,6 +1,6 @@
-
+// import styles
 import styles from '../../Styles/Loader.module.css'
-
+//import images
 import loaderImage from '../../assets/Images/loading.svg'
 
 function Loader() {
