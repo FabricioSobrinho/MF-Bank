@@ -10,8 +10,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Errors from "../Layouts/Components/Errors";
-
 import { cpf } from "cpf-cnpj-validator";
+
 import ValidationErrors from "../Layouts/Components/ValidationErrors";
 
 function CreateAccountScreen() {
@@ -32,46 +32,20 @@ function CreateAccountScreen() {
     date_birth: "",
   });
 
+  const validCpf = cpf.isValid(userData.cpf);
+  const validPhoneNumber =
+    userData.phone_number &&
+    userData.phone_number[15] !== undefined &&
+    userData.phone_number[1] !== "0"
+      ? true
+      : false;
+
   const setInputValue = (e) => {
     setUserData((prevUserData) => ({
       ...prevUserData,
       [e.target.name]: e.target.value,
     }));
   };
-
-  const validCpf = cpf.isValid(userData.cpf);
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  const validEmail = isValidEmail(userData.email);
-
-  const validPassConfirmation =
-    userData.password === userData.password_confirmation ? true : false;
-
-  const validPass = userData.password.length >= 8 ? true : false;
-
-  const validPhoneNumber =
-    userData.phone_number[15] !== undefined && userData.phone_number[1] !== '0';
-
-  const isValidBirthDate = (birthDate) => {
-    birthDate = userData.date_birth.split("/")
-
-    let now_date = new Date
-
-    let born_year = birthDate[2]
-
-    if (born_year > now_date.getFullYear()) {
-
-      return false
-    } else {
-      return true
-    }
-  }
-
-  const validBirthDate = isValidBirthDate(userData.birthDate)
 
   const sentAccount = async () => {
     const config = {
@@ -211,10 +185,10 @@ function CreateAccountScreen() {
               userData.password &&
               userData.password_confirmation &&
               userData.sur_name &&
-              validPhoneNumber &&
               userData.password === userData.password_confirmation &&
               userData.password.length >= 8 &&
-              validCpf && (
+              validCpf &&
+              validPhoneNumber && (
                 <InputButton
                   heightButton={5.5}
                   widthButton={23}
@@ -223,14 +197,7 @@ function CreateAccountScreen() {
                 />
               )}
 
-            <ValidationErrors
-              // emailErr={!validEmail}
-              // cpfErr={!validCpf}
-              // passConfirmErr={!validPassConfirmation}
-              // passErr={!validPass}
-              // birthDateErr={!validBirthDate}
-              userData={userData}
-            />
+            <ValidationErrors userData={userData} />
           </div>
         </div>
       </div>
