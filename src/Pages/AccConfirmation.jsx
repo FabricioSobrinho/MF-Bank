@@ -1,5 +1,3 @@
-import React from "react";
-
 function AccConfirmation() {
   const style = {
     display: "flex",
