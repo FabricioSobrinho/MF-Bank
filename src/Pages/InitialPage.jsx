@@ -5,10 +5,14 @@ import initialScreenImage from "../assets/Images/initial-screen-image.svg";
 import styles from "../Styles/InitialPage.module.css";
 
 // import elements to the page
-import Button from "../Layouts/FormsComponents/Button";
+import InputButton from "../Layouts/FormsComponents/InputButton";
 import CookiesAllow from "../Layouts/Components/CookiesAllow";
 
+// import hooks
+import { useLoggedIn } from "../hooks/LoggedProvider";
+
 function InitialScreen() {
+  const { isLoggedIn } = useLoggedIn();
   return (
     <div className={styles.mainInitialPage}>
       <div className={styles.initialLeftPage}>
@@ -17,7 +21,12 @@ function InitialScreen() {
           <p>O banco mais seguro da américa latina!</p>
         </div>
         <div className={styles.form}>
-          <Button text="Acessar" />
+          <InputButton
+            route={isLoggedIn ? "/view-account" : "/login"}
+            text="Acessar"
+            heightButton={7}
+            widthButton={30}
+          />
         </div>
       </div>
 

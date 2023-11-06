@@ -6,6 +6,7 @@ import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 
 function WithdrawPage() {
+
   return (
     <div className={styles.MainWithdrawPage}>
       <div className={styles.leftWithdrawScreen}>
