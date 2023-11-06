@@ -1,21 +1,33 @@
+// import hooks
+import { useState } from "react";
+import { useLoggedIn } from "../hooks/LoggedProvider";
+
+// import styles
 import styles from "../Styles/LoginPage.module.css";
 
+// import images
 import loginScreenImage from "../assets/Images/login-screen-image.svg";
 
+// import components
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
-import axios from "axios";
-import { useState } from "react";
+import ValidationErrors from "../Layouts/Components/ValidationErrors";
 
-function LoginScreen() {
+// import dependencies
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
+function LoginPage() {
+  const { login } = useLoggedIn();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
+  const navigate = useNavigate();
   const handleLoginData = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
-    console.log(loginData)
   };
 
   const loginUser = async () => {
@@ -32,7 +44,14 @@ function LoginScreen() {
         config
       );
 
-      console.log("Usuário logado com sucesso:", response);
+      Cookies.set("accessToken", response.headers["access-token"], {
+        expires: 1,
+      });
+      Cookies.set("client", response.headers.client, { expires: 1 });
+      Cookies.set("uid", response.headers.uid, { expires: 1 });
+      login();
+
+      navigate("/view-account");
     } catch (error) {
       console.log("Houve um erro na autenticação" + error);
     }
@@ -55,7 +74,7 @@ function LoginScreen() {
               heightInput={5}
               required
               handleChange={handleLoginData}
-              />
+            />
             <InputInsertData
               text="Senha"
               type="password"
@@ -71,6 +90,8 @@ function LoginScreen() {
               widthButton={20}
               handleClick={loginUser}
             />
+
+            <ValidationErrors userData={loginData} />
           </div>
           <div className={styles.createACcountRedirect}>
             <hr />
@@ -84,4 +105,4 @@ function LoginScreen() {
   );
 }
 
-export default LoginScreen;
+export default LoginPage;
