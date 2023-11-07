@@ -1,4 +1,3 @@
-// import hooks
 import { createContext, useContext, useState } from "react";
 
 const UserContext = createContext();
@@ -15,6 +14,7 @@ export const UserProvider = ({ children }) => {
     phone_number: "",
     uf: "",
     uid: "",
+    balance: 0,
   });
 
   const setUserData = (userData) => {
@@ -24,8 +24,14 @@ export const UserProvider = ({ children }) => {
     });
   };
 
+  const setBalance = (balance) => {
+    setUser((prevUser) => {
+      return { ...prevUser, balance: balance };
+    });
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUserData }}>
+    <UserContext.Provider value={{ user, setUserData, setBalance }}>
       {children}
     </UserContext.Provider>
   );
