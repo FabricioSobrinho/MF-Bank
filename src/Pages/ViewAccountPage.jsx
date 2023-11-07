@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../hooks/UserProvider";
 import { validateToken } from "../hooks/ValidateToken";
+import { GetBalance } from "../hooks/GetBalance";
 
 // import styles
 import styles from "../Styles/ViewAccountPage.module.css";
@@ -16,7 +17,7 @@ import Cookies from "js-cookie";
 function ViewAccountPage() {
   const [isLoading, setIsLoading] = useState(true);
 
-  const { user, setUserData } = useUser();
+  const { user, setUserData, setBalance } = useUser();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -25,7 +26,12 @@ function ViewAccountPage() {
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
-      accessToken ? setIsLoading(false) : setIsLoading(true);
+      if (accessToken) {
+        await GetBalance(accessToken, client, uid, setBalance)
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
+      }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
     }
@@ -35,6 +41,7 @@ function ViewAccountPage() {
   if (accessToken && client) {
     useEffect(() => {
       validateTokenAuth();
+      
     }, []);
   } else {
   }
@@ -49,7 +56,7 @@ function ViewAccountPage() {
             <div className={styles.accInfo}>
               <p>Dados da conta:</p>
               <p>Nome Titular: {user.name}</p>
-              <p>Saldo: </p>
+              <p>Saldo: {user.balance}</p>
               <p>Número da conta: {user.acc_number}</p>
             </div>
             <div className={styles.accLastActions}>
