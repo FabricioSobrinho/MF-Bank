@@ -11,7 +11,7 @@ export const validateToken = async (accessToken, client, uid, setUserData) => {
       uid: uid,
     },
   };
-
+  
   try {
     const response = await axios.get(
       "http://localhost:3000/auth/validate_token",
