@@ -29,7 +29,7 @@ function DepositPage() {
   });
 
   const [depositFavoredAccount, setDepositFavoreAccount] = useState({
-    deposit_favored_account: null,
+    deposit_favored_account: 0,
   });
 
   const [isClientFavored, setIsClientFavored] = useState(false);
@@ -41,47 +41,54 @@ function DepositPage() {
   const uid = Cookies.get("uid");
 
   const depositAction = async () => {
-    try {
-      const isValidPass = await ValidatePassword(
-        accessToken,
-        client,
-        uid,
-        password
-      );
+    if (depositAmount.deposit_amount > 0) {
+      try {
+        const isValidPass = await ValidatePassword(
+          accessToken,
+          client,
+          uid,
+          password
+        );
 
-      if (isValidPass) {
-        try {
-          const config = {
-            headers: {
-              "access-token": accessToken,
-              client: client,
-              uid: uid,
-            },
-          };
+        if (isValidPass) {
+          try {
+            const config = {
+              headers: {
+                "access-token": accessToken,
+                client: client,
+                uid: uid,
+              },
+            };
 
-          const depositFavoredAccountNumber = isClientFavored
-            ? null
-            : depositFavoredAccount.deposit_favored_account;
+            const depositFavoredAccountNumber = isClientFavored
+              ? null
+              : depositFavoredAccount.deposit_favored_account;
 
-          const depositData = {
-            deposit_amount: depositAmount.deposit_amount,
-            deposit_favored_account: depositFavoredAccountNumber,
-          };
+            const depositData = {
+              deposit_amount: depositAmount.deposit_amount,
+              deposit_favored_account: depositFavoredAccountNumber,
+            };
 
-          const response = await axios.post(
-            "http://localhost:3000/deposit",
-            depositData,
-            config
-          );
+            const response = await axios.post(
+              "http://localhost:3000/deposit",
+              depositData,
+              config
+            );
 
-          console.log("deposito efetuado com sucesso!" + response.status);
-          navigate("/view-account");
-        } catch (error) {
-          console.log("Houve um erro ao efetuar seu deposito" + error);
+            navigate("/view-account", {
+              state: { message: "Depósito efetuado com sucesso" },
+            });
+          } catch (error) {
+            setErrors([[error.response.data.error]]);
+          }
+        } else {
+          setErrors([["Senha inválida"]]);
         }
+      } catch (error) {
+        setErrors([[error]]);
       }
-    } catch (error) {
-      console.log("senha inválida");
+    } else {
+      setErrors([["Insira um montante para o depósito"]]);
     }
   };
 
@@ -105,8 +112,6 @@ function DepositPage() {
     setDepositFavoreAccount({
       deposit_favored_account: favoredAccountNumber,
     });
-
-    console.log(depositFavoredAccount.deposit_favored_account);
   };
 
   const validateTokenAuth = async () => {
@@ -130,6 +135,7 @@ function DepositPage() {
     <div className={styles.MainDepositPage}>
       <div className={styles.leftDepositScreen}>
         <div className={styles.topLeftDepositScreen}>
+          {errors.length > 0 && <Errors errors={errors} />}
           <label htmlFor="depositMontant">
             Insira a quantia que deseja depositar:
           </label>
