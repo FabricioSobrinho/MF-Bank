@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../hooks/UserProvider";
 import { validateToken } from "../hooks/ValidateToken";
 import { GetBalance } from "../hooks/GetBalance";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // import styles
 import styles from "../Styles/ViewAccountPage.module.css";
@@ -10,11 +11,17 @@ import styles from "../Styles/ViewAccountPage.module.css";
 // import components
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import Loader from "../Layouts/Components/Loader";
+import SuccessMessage from "../Layouts/Components/SuccessMessage";
 
 // import dependencies
 import Cookies from "js-cookie";
 
 function ViewAccountPage() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [message, setMessage] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
   const { user, setUserData, setBalance } = useUser();
@@ -23,11 +30,14 @@ function ViewAccountPage() {
   const client = Cookies.get("client");
   const uid = Cookies.get("uid");
 
+  const toFixedValue = (value) => {
+    return parseFloat(value).toFixed(2);
+  };
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
       if (accessToken) {
-        await GetBalance(accessToken, client, uid, setBalance)
+        await GetBalance(accessToken, client, uid, setBalance);
         setIsLoading(false);
       } else {
         setIsLoading(true);
@@ -41,9 +51,15 @@ function ViewAccountPage() {
   if (accessToken && client) {
     useEffect(() => {
       validateTokenAuth();
-      
+      if (location.state) {
+        setMessage(location.state.message);
+      }
+  
+      setInterval(() => {
+        navigate({ state: { message: null } });
+        setMessage(null);
+      }, 3000);
     }, []);
-  } else {
   }
 
   return (
@@ -51,12 +67,13 @@ function ViewAccountPage() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className={styles.mainViewAccountPage} onClick={validateToken}>
+        <div className={styles.mainViewAccountPage}>
+          {message && <SuccessMessage message={message} />}
           <div className={styles.leftViewAccountPage}>
             <div className={styles.accInfo}>
               <p>Dados da conta:</p>
               <p>Nome Titular: {user.name}</p>
-              <p>Saldo: {user.balance}</p>
+              <p>Saldo: {toFixedValue(user.balance)} R$</p>
               <p>Número da conta: {user.acc_number}</p>
             </div>
             <div className={styles.accLastActions}>
