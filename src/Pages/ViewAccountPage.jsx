@@ -33,6 +33,7 @@ function ViewAccountPage() {
   const toFixedValue = (value) => {
     return parseFloat(value).toFixed(2);
   };
+
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
@@ -124,6 +125,11 @@ function ViewAccountPage() {
                   heightButton={5}
                   widthButton={20}
                   route={"/close-account"}
+                />
+                <InputButton
+                  text="Sair"
+                  heightButton={5}
+                  widthButton={20}
                 />
               </div>
             </menu>
