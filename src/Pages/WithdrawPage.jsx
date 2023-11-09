@@ -13,6 +13,7 @@ import styles from "../Styles/WithdrawPage.module.css";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import Errors from "../Layouts/Components/Errors";
+import Loader from "../Layouts/Components/Loader";
 
 // import dependencies
 import Cookies from "js-cookie";
@@ -29,12 +30,14 @@ function WithdrawPage() {
 
   const [errors, setErrors] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const navigate = useNavigate();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
   const uid = Cookies.get("uid");
-  
+
   const withdrawAction = async () => {
     if (withdrawMontant.withdrawal_amount > 0) {
       try {
@@ -63,7 +66,6 @@ function WithdrawPage() {
             navigate("/view-account", {
               state: { message: "Saque efetuado com sucesso!" },
             });
-
           } catch (error) {
             setErrors([
               ["Houve um erro ao finalizar a transação, tente novamente!"],
@@ -90,11 +92,18 @@ function WithdrawPage() {
     setPassword(e.target.value);
   };
 
+  const toFixedValue = (value) => {
+    return parseFloat(value).toFixed(2);
+  };
+
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
+        setIsLoading(false);
+      } else {
+        setErrors(true);
       }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
@@ -108,67 +117,76 @@ function WithdrawPage() {
   }, []);
 
   return (
-    <div className={styles.MainWithdrawPage}>
-      <div className={styles.leftWithdrawScreen}>
-        <div className={styles.topLeftWithdrawScreen}>
-          {errors.length > 0 && <Errors errors={errors} />}
-          <label htmlFor="withdrawMontant">
-            Insira a quantia que deseja sacar:
-          </label>
-          <InputInsertData
-            text="Quantia do saque"
-            heightInput={4.5}
-            widthInput={29}
-            type="number"
-            name="withdrawMontant"
-            handleChange={handleWithdraw}
-            required
-          />
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.MainWithdrawPage}>
+          <div className={styles.leftWithdrawScreen}>
+            <div className={styles.topLeftWithdrawScreen}>
+              {errors.length > 0 && <Errors errors={errors} />}
+              <label htmlFor="withdrawMontant">
+                Insira a quantia que deseja sacar:
+              </label>
+              <InputInsertData
+                text="Quantia do saque"
+                heightInput={4.5}
+                widthInput={29}
+                type="number"
+                name="withdrawMontant"
+                handleChange={handleWithdraw}
+                required
+              />
 
-          {withdrawMontant.withdrawal_amount < 0 ? (
-            <div className={styles.notEnoughBalance}>Saldo inválido</div>
-          ) : user.balance >= withdrawMontant.withdrawal_amount ? (
-            <div className={styles.EnoughBalance}>Saldo suficiente</div>
-          ) : (
-            <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
-          )}
-          <hr />
+              {withdrawMontant.withdrawal_amount < 0 ? (
+                <div className={styles.notEnoughBalance}>Saldo inválido</div>
+              ) : user.balance >= withdrawMontant.withdrawal_amount ? (
+                <div className={styles.EnoughBalance}>Saldo suficiente</div>
+              ) : (
+                <div className={styles.notEnoughBalance}>
+                  Saldo insuficiente
+                </div>
+              )}
+              <hr />
+            </div>
+            <div className={styles.bottomLeftWithdrawScreen}>
+              <label htmlFor="withdrawPass">Insira a sua senha: </label>
+              <InputInsertData
+                text="Senha"
+                heightInput={4.5}
+                widthInput={29}
+                type="password"
+                name="withdrawPass"
+                handleChange={handlePassword}
+                required
+              />
+              <InputButton
+                text="Confirmar"
+                heightButton={5}
+                widthButton={15}
+                name="cofirmWithdraw"
+                handleClick={withdrawAction}
+              />
+            </div>
+          </div>
+          <div className={styles.rightWithdrawScreen}>
+            <div className={styles.newBalanceView}>
+              <p>
+                Saldo atual: {toFixedValue(user.balance)}
+                <br />
+                Novo saldo:{" "}
+                {toFixedValue(user.balance - withdrawMontant.withdrawal_amount)}
+              </p>
+            </div>
+            <InputButton
+              text="Cancelar operação"
+              heightButton={5.125}
+              widthButton={29}
+            />
+          </div>
         </div>
-        <div className={styles.bottomLeftWithdrawScreen}>
-          <label htmlFor="withdrawPass">Insira a sua senha: </label>
-          <InputInsertData
-            text="Senha"
-            heightInput={4.5}
-            widthInput={29}
-            type="password"
-            name="withdrawPass"
-            handleChange={handlePassword}
-            required
-          />
-          <InputButton
-            text="Confirmar"
-            heightButton={5}
-            widthButton={15}
-            name="cofirmWithdraw"
-            handleClick={withdrawAction}
-          />
-        </div>
-      </div>
-      <div className={styles.rightWithdrawScreen}>
-        <div className={styles.newBalanceView}>
-          <p>
-            Saldo atual: {user.balance}
-            <br />
-            Novo saldo: {user.balance - withdrawMontant.withdrawal_amount}
-          </p>
-        </div>
-        <InputButton
-          text="Cancelar operação"
-          heightButton={5.125}
-          widthButton={29}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

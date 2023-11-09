@@ -13,6 +13,7 @@ import styles from "../Styles/DepositPage.module.css";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import Errors from "../Layouts/Components/Errors";
+import Loader from "../Layouts/Components/Loader";
 
 // import dependencies
 import Cookies from "js-cookie";
@@ -33,6 +34,8 @@ function DepositPage() {
   });
 
   const [isClientFavored, setIsClientFavored] = useState(false);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -114,11 +117,18 @@ function DepositPage() {
     });
   };
 
+  const toFixedValue = (value) => {
+    return parseFloat(value).toFixed(2);
+  };
+
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
+        setIsLoading(false);
+      } else {
+        setIsLoading(true);
       }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
@@ -132,86 +142,92 @@ function DepositPage() {
   }, []);
 
   return (
-    <div className={styles.MainDepositPage}>
-      <div className={styles.leftDepositScreen}>
-        <div className={styles.topLeftDepositScreen}>
-          {errors.length > 0 && <Errors errors={errors} />}
-          <label htmlFor="depositMontant">
-            Insira a quantia que deseja depositar:
-          </label>
-          <InputInsertData
-            text="Quantia do deposito"
-            heightInput={4.5}
-            widthInput={29}
-            name="depositMontant"
-            type="number"
-            handleChange={handleDepositAmount}
-            required
-          />
-          <div className={styles.checkbox}>
-            <input
-              type="checkbox"
-              id="favSelector"
-              onChange={handleIsClientFavored}
-            />
-            <label htmlFor="favSelector">Favorecido é você mesmo?</label>
-          </div>
-          {!isClientFavored && (
-            <>
-              <label htmlFor="favoredAccountNumber">
-                Insira o número da conta do favorecido:
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.MainDepositPage}>
+          <div className={styles.leftDepositScreen}>
+            <div className={styles.topLeftDepositScreen}>
+              {errors.length > 0 && <Errors errors={errors} />}
+              <label htmlFor="depositMontant">
+                Insira a quantia que deseja depositar:
               </label>
               <InputInsertData
-                text="Numero da conta"
+                text="Quantia do deposito"
                 heightInput={4.5}
                 widthInput={29}
-                name="favoredAccountNumber"
-                maskChar={""}
-                mask={"99999999"}
-                handleChange={handleFavoredAccountNumber}
+                name="depositMontant"
+                type="number"
+                handleChange={handleDepositAmount}
                 required
               />
-            </>
-          )}
-          <hr />
+              <div className={styles.checkbox}>
+                <input
+                  type="checkbox"
+                  id="favSelector"
+                  onChange={handleIsClientFavored}
+                />
+                <label htmlFor="favSelector">Favorecido é você mesmo?</label>
+              </div>
+              {!isClientFavored && (
+                <>
+                  <label htmlFor="favoredAccountNumber">
+                    Insira o número da conta do favorecido:
+                  </label>
+                  <InputInsertData
+                    text="Numero da conta"
+                    heightInput={4.5}
+                    widthInput={29}
+                    name="favoredAccountNumber"
+                    maskChar={""}
+                    mask={"99999999"}
+                    handleChange={handleFavoredAccountNumber}
+                    required
+                  />
+                </>
+              )}
+              <hr />
+            </div>
+            <div className={styles.bottomLeftDepositScreen}>
+              <label htmlFor="depositPass">Insira a sua senha: </label>
+              <InputInsertData
+                text="Senha"
+                heightInput={4.5}
+                widthInput={29}
+                type="password"
+                name="depositPass"
+                handleChange={handlePassword}
+                required
+              />
+              <InputButton
+                text="Confirmar"
+                heightButton={5}
+                widthButton={15}
+                handleClick={depositAction}
+              />
+            </div>
+          </div>
+          <div className={styles.rightDepositScreen}>
+            <div className={styles.newBalanceView}>
+              <p>
+                Saldo atual: {toFixedValue(user.balance)}
+                <br />
+                Novo saldo:{" "}
+                {isClientFavored
+                  ? toFixedValue(user.balance + depositAmount.deposit_amount)
+                  : toFixedValue(user.balance)}
+              </p>
+            </div>
+            <InputButton
+              text="Cancelar operação"
+              heightButton={5.125}
+              widthButton={29}
+            />
+          </div>
         </div>
-        <div className={styles.bottomLeftDepositScreen}>
-          <label htmlFor="depositPass">Insira a sua senha: </label>
-          <InputInsertData
-            text="Senha"
-            heightInput={4.5}
-            widthInput={29}
-            type="password"
-            name="depositPass"
-            handleChange={handlePassword}
-            required
-          />
-          <InputButton
-            text="Confirmar"
-            heightButton={5}
-            widthButton={15}
-            handleClick={depositAction}
-          />
-        </div>
-      </div>
-      <div className={styles.rightDepositScreen}>
-        <div className={styles.newBalanceView}>
-          <p>
-            Saldo atual: {user.balance}
-            <br />
-            Novo saldo:{" "}
-            {isClientFavored
-              ? user.balance + depositAmount.deposit_amount
-              : user.balance}
-          </p>
-        </div>
-        <InputButton
-          text="Cancelar operação"
-          heightButton={5.125}
-          widthButton={29}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
