@@ -2,13 +2,13 @@
 import { useState, useEffect } from "react";
 import { validateToken } from "../hooks/ValidateToken";
 import { useUser } from "../hooks/UserProvider";
-import { useNavigate } from "react-router-dom";
 
 // import styles
 import styles from "../Styles/ExtractPage.module.css";
 
 // import components
-import AccountMovement from "../Layouts/Components/AccountMovement";
+import AccountMovements from "../Layouts/Components/AccountMovements";
+import Loader from "../Layouts/Components/Loader";
 
 // import dependencies
 import Cookies from "js-cookie";
@@ -18,6 +18,8 @@ function ExtractPage() {
   const { user, setUserData } = useUser();
 
   const [accountMovements, setAccountMovements] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -39,21 +41,28 @@ function ExtractPage() {
       );
 
       setAccountMovements([response.data]);
-      console.log(
-        accountMovements.map((accountMovements) => accountMovements[51])
-      );
+
+      let accessTokenHeader = response.headers["access-token"];
+
+      if (accessTokenHeader !== "") {
+        Cookies.set("accessToken", accessTokenHeader, { expires: 1 });
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const requestLastMoves = (moves) => {
+    return moves.map((item) => item.slice(-5));
   };
 
   const validateTokenAuth = async () => {
     try {
       await validateToken(accessToken, client, uid, setUserData);
       if (accessToken) {
-        // setIsLoading(false);
+        setIsLoading(false);
       } else {
-        // setIsLoading(true);
+        setIsLoading(true);
       }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
@@ -66,49 +75,32 @@ function ExtractPage() {
   }, []);
 
   return (
-    <div className={styles.mainExtractPage} onClick={extractAction}>
-      <div className={styles.leftExtractScreen}>
-        <div className={styles.lastMovements}>
-          <h1>ÚLTIMAS MOVIMENTAÇÕES</h1>
-          {user.balance}
-          <p>Saldo x: entrada xxx, tipo da movimentação</p>
-          <p>Saldo x: entrada xxx, tipo da movimentação</p>
-          <p>Saldo x: entrada xxx, tipo da movimentação</p>
-          <p>Saldo x: entrada xxx, tipo da movimentação</p>
-          <p>Saldo x: entrada xxx, tipo da movimentação</p>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.mainExtractPage} onClick={extractAction}>
+          <div className={styles.leftExtractScreen}>
+            <div className={styles.lastMovements}>
+              <h1>ÚLTIMAS MOVIMENTAÇÕES</h1>
+              {accountMovements.length > 0 && (
+                <AccountMovements
+                  accountMovements={requestLastMoves(accountMovements)}
+                />
+              )}
+            </div>
+          </div>
+          <div className={styles.rightExtractScreen}>
+            <h1>EXTRATO COMPLETO</h1>
+            <div className={styles.allMovements}>
+              {accountMovements.length > 0 && (
+                <AccountMovements accountMovements={accountMovements} />
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.rightExtractScreen}>
-        <h1>EXTRATO COMPLETO</h1>
-        <div className={styles.allMovements}>
-          <AccountMovement
-            movementType="Deposit"
-            montantValue={210}
-            seender="Kiriko"
-          />
-          <AccountMovement
-            movementType="Deposit"
-            montantValue={210}
-            seender="Kiriko"
-          />
-          <AccountMovement
-            movementType="Deposit"
-            montantValue={210}
-            seender="Kiriko"
-          />
-          <AccountMovement
-            movementType="Deposit"
-            montantValue={210}
-            seender="Kiriko"
-          />
-          <AccountMovement
-            movementType="Deposit"
-            montantValue={210}
-            seender="Kiriko"
-          />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
