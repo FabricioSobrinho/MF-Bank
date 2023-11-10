@@ -10,23 +10,24 @@
 }
 
 .leftViewAccountPage {
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #202020;
 }
 
-.accInfo,
-.accLastActions {
+.accInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
   width: 95%;
   padding: 2%;
   background: #272727;
+  font-size: 2rem;
 }
-.accInfo {
-  margin-top: 20%;
-}
-.accLastActions {
-  margin-top: 8%;
-}
+
 .rightViewAccountPage {
   align-items: center;
   justify-content: center;
