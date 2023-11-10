@@ -11,7 +11,7 @@ export const validateToken = async (accessToken, client, uid, setUserData) => {
       uid: uid,
     },
   };
-  
+
   try {
     const response = await axios.get(
       "http://localhost:3000/auth/validate_token",
@@ -29,5 +29,6 @@ export const validateToken = async (accessToken, client, uid, setUserData) => {
     return true;
   } catch (error) {
     console.log("Ocorreu um erro de validação: " + error);
+    Cookies.remove("isLoggedIn");
   }
 };
