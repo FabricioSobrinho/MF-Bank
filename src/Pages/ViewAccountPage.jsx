@@ -77,12 +77,6 @@ function ViewAccountPage() {
               <p>Saldo: {toFixedValue(user.balance)} R$</p>
               <p>Número da conta: {user.acc_number}</p>
             </div>
-            <div className={styles.accLastActions}>
-              <p>Últimas movimentações: </p>
-              <p>Movimentação x: 3u9u</p>
-              <p>Movimentação x: 3u9u</p>
-              <p>Movimentação x: 3u9u</p>
-            </div>
           </div>
           <div className={styles.rightViewAccountPage}>
             <menu className={styles.accMenu}>
