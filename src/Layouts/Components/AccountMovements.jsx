@@ -1,11 +1,18 @@
-import AccountMovement from "./AccountMovement"
+import AccountMovement from "./AccountMovement";
 
-function AccountMovements() {
+function AccountMovements({ accountMovements }) {
+  console.log(accountMovements);
   return (
-    <div>
-        
-    </div>
-  )
+    <>
+      {accountMovements.map((accMoves) =>
+        accMoves.map((accMove) => (
+          <AccountMovement
+            accMove={accMove}
+          />
+        ))
+      )}
+    </>
+  );
 }
 
-export default AccountMovements
+export default AccountMovements;
