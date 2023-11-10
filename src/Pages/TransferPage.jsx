@@ -13,6 +13,7 @@ import styles from "../Styles/TransferPage.module.css";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import Errors from "../Layouts/Components/Errors";
+import Loader from "../Layouts/Components/Loader";
 
 // import dependencies
 import Cookies from "js-cookie";
@@ -33,6 +34,8 @@ function TransferPage() {
   });
 
   const [errors, setErrors] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -115,7 +118,9 @@ function TransferPage() {
       await validateToken(accessToken, client, uid, setUserData);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
+        setIsLoading(false);
       } else {
+        setIsLoading(true);
       }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
@@ -129,80 +134,90 @@ function TransferPage() {
   }, []);
 
   return (
-    <div className={styles.MainTransferPage}>
-      <div className={styles.leftTransferScreen}>
-        <div className={styles.topLeftTransferScreen}>
-          {errors.length > 0 && <Errors errors={errors} />}
+    <>
+      {" "}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.MainTransferPage}>
+          <div className={styles.leftTransferScreen}>
+            <div className={styles.topLeftTransferScreen}>
+              {errors.length > 0 && <Errors errors={errors} />}
 
-          <label htmlFor="transferOriginAcc">
-            Insira a quantia que deseja transferir:{" "}
-          </label>
-          <InputInsertData
-            text="Quantia da transferêcia"
-            heightInput={4.5}
-            widthInput={29}
-            type={"number"}
-            name="transferOriginAcc"
-            handleChange={handleTransferAmount}
-            required
-          />
-          {transferAmount.transfer_amount > user.balance ? (
-            <div className={styles.notEnoughBalance}>Saldo insuficiente</div>
-          ) : transferAmount.transfer_amount < 0 ? (
-            <div className={styles.notEnoughBalance}>Saldo inválido</div>
-          ) : (
-            <div className={styles.EnoughBalance}>Saldo suficiente</div>
-          )}
-          <label htmlFor="favTransferNumber">
-            Insira o número da conta do favorecido:{" "}
-          </label>
-          <InputInsertData
-            text="Número da conta favorecida"
-            heightInput={4.5}
-            widthInput={29}
-            name="favTransferNumber"
-            mask={"99999999"}
-            maskChar={" "}
-            handleChange={handleFavoredAccount}
-            required
-          />
-          <hr />
-        </div>
-        <div className={styles.bottomLeftTransferScreen}>
-          <label htmlFor="transferPass">Insira a sua senha: </label>
-          <InputInsertData
-            text="Senha"
-            heightInput={4.5}
-            widthInput={29}
-            type="password"
-            name="transferPass"
-            handleChange={handlePassword}
-            required
-          />
+              <label htmlFor="transferOriginAcc">
+                Insira a quantia que deseja transferir:{" "}
+              </label>
+              <InputInsertData
+                text="Quantia da transferêcia"
+                heightInput={4.5}
+                widthInput={29}
+                type={"number"}
+                name="transferOriginAcc"
+                handleChange={handleTransferAmount}
+                required
+              />
+              {transferAmount.transfer_amount > user.balance ? (
+                <div className={styles.notEnoughBalance}>
+                  Saldo insuficiente
+                </div>
+              ) : transferAmount.transfer_amount < 0 ? (
+                <div className={styles.notEnoughBalance}>Saldo inválido</div>
+              ) : (
+                <div className={styles.EnoughBalance}>Saldo suficiente</div>
+              )}
+              <label htmlFor="favTransferNumber">
+                Insira o número da conta do favorecido:{" "}
+              </label>
+              <InputInsertData
+                text="Número da conta favorecida"
+                heightInput={4.5}
+                widthInput={29}
+                name="favTransferNumber"
+                mask={"99999999"}
+                maskChar={" "}
+                handleChange={handleFavoredAccount}
+                required
+              />
+              <hr />
+            </div>
+            <div className={styles.bottomLeftTransferScreen}>
+              <label htmlFor="transferPass">Insira a sua senha: </label>
+              <InputInsertData
+                text="Senha"
+                heightInput={4.5}
+                widthInput={29}
+                type="password"
+                name="transferPass"
+                handleChange={handlePassword}
+                required
+              />
 
-          <InputButton
-            text="Confirmar"
-            heightButton={5}
-            widthButton={15}
-            handleClick={transferAction}
-          />
+              <InputButton
+                text="Confirmar"
+                heightButton={5}
+                widthButton={15}
+                handleClick={transferAction}
+              />
+            </div>
+          </div>
+          <div className={styles.rightTransferScreen}>
+            <div className={styles.newBalanceView}>
+              <p>
+                Saldo atual: {toFixedValue(user.balance)}
+                <br />
+                Novo saldo:{" "}
+                {toFixedValue(user.balance - transferAmount.transfer_amount)}
+              </p>
+            </div>
+            <InputButton
+              text="Cancelar operação"
+              heightButton={5.125}
+              widthButton={29}
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.rightTransferScreen}>
-        <div className={styles.newBalanceView}>
-          <p>
-            Saldo atual: {toFixedValue(user.balance)}
-            <br />
-            Novo saldo: {toFixedValue(user.balance - transferAmount.transfer_amount)}
-          </p>
-        </div>
-        <InputButton
-          text="Cancelar operação"
-          heightButton={5.125}
-          widthButton={29}
-        />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
