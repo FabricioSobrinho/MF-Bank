@@ -5,6 +5,7 @@ import { ValidatePassword } from "../hooks/ValidatePassword";
 import { useNavigate } from "react-router-dom";
 import { GetBalance } from "../hooks/GetBalance";
 import { useUser } from "../hooks/UserProvider";
+import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import styles
 import styles from "../Styles/TransferPage.module.css";
@@ -36,6 +37,8 @@ function TransferPage() {
   const [errors, setErrors] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const { logout } = useLoggedIn();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -115,7 +118,7 @@ function TransferPage() {
 
   const validateTokenAuth = async () => {
     try {
-      await validateToken(accessToken, client, uid, setUserData);
+      await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
         setIsLoading(false);

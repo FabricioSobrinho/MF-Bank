@@ -5,6 +5,7 @@ import { ValidatePassword } from "../hooks/ValidatePassword";
 import { useUser } from "../hooks/UserProvider";
 import { GetBalance } from "../hooks/GetBalance";
 import { useNavigate } from "react-router-dom";
+import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import styles
 import styles from "../Styles/DepositPage.module.css";
@@ -38,6 +39,8 @@ function DepositPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  const { logout } = useLoggedIn();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -123,7 +126,7 @@ function DepositPage() {
 
   const validateTokenAuth = async () => {
     try {
-      await validateToken(accessToken, client, uid, setUserData);
+      await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
         setIsLoading(false);

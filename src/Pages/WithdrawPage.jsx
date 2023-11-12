@@ -5,6 +5,7 @@ import { validateToken } from "../hooks/ValidateToken";
 import { GetBalance } from "../hooks/GetBalance";
 import { ValidatePassword } from "../hooks/ValidatePassword";
 import { useNavigate } from "react-router-dom";
+import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import styles
 import styles from "../Styles/WithdrawPage.module.css";
@@ -20,6 +21,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 
 function WithdrawPage() {
+
   const { user, setUserData, setBalance } = useUser();
 
   const [withdrawMontant, setWIthdrawMontant] = useState({
@@ -33,6 +35,8 @@ function WithdrawPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  const { logout } = useLoggedIn(); 
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -98,7 +102,7 @@ function WithdrawPage() {
 
   const validateTokenAuth = async () => {
     try {
-      await validateToken(accessToken, client, uid, setUserData);
+      await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
         setIsLoading(false);

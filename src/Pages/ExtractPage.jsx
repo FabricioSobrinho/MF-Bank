@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { validateToken } from "../hooks/ValidateToken";
 import { useUser } from "../hooks/UserProvider";
+import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import styles
 import styles from "../Styles/ExtractPage.module.css";
@@ -20,6 +21,8 @@ function ExtractPage() {
   const [accountMovements, setAccountMovements] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const { logout } = useLoggedIn
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -58,7 +61,7 @@ function ExtractPage() {
 
   const validateTokenAuth = async () => {
     try {
-      await validateToken(accessToken, client, uid, setUserData);
+      await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
         setIsLoading(false);
       } else {
