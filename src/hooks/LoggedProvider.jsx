@@ -23,6 +23,9 @@ export const LoggedProvider = ({ children }) => {
   const logout = () => {
     setIsLoggedIn(false);
     Cookies.remove("isLoggedIn");
+    Cookies.remove("access-token");
+    Cookies.remove("client");
+    Cookies.remove("uid");
   };
 
   return (
