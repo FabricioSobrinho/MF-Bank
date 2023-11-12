@@ -4,6 +4,7 @@ import { useUser } from "../hooks/UserProvider";
 import { validateToken } from "../hooks/ValidateToken";
 import { GetBalance } from "../hooks/GetBalance";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import styles
 import styles from "../Styles/ViewAccountPage.module.css";
@@ -15,6 +16,7 @@ import SuccessMessage from "../Layouts/Components/SuccessMessage";
 
 // import dependencies
 import Cookies from "js-cookie";
+import axios from "axios";
 
 function ViewAccountPage() {
   const location = useLocation();
@@ -25,6 +27,7 @@ function ViewAccountPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   const { user, setUserData, setBalance } = useUser();
+  const { logout } = useLoggedIn();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -34,9 +37,31 @@ function ViewAccountPage() {
     return parseFloat(value).toFixed(2);
   };
 
+  const logoutAction = async () => {
+    try {
+      const config = {
+        headers: {
+          "access-token": accessToken,
+          client: client,
+          uid: uid,
+        },
+      };
+
+      const response = await axios.delete(
+        "http://localhost:3000/auth/sign_out",
+        config
+      );
+
+      logout();
+      navigate("/");
+    } catch (error) {
+      console.log("Houve um erro ao tentar fazer logout" + error);
+    }
+  };
+
   const validateTokenAuth = async () => {
     try {
-      await validateToken(accessToken, client, uid, setUserData);
+      await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
         await GetBalance(accessToken, client, uid, setBalance);
         setIsLoading(false);
@@ -55,7 +80,7 @@ function ViewAccountPage() {
       if (location.state) {
         setMessage(location.state.message);
       }
-  
+
       setInterval(() => {
         navigate({ state: { message: null } });
         setMessage(null);
@@ -124,6 +149,7 @@ function ViewAccountPage() {
                   text="Sair"
                   heightButton={5}
                   widthButton={20}
+                  handleClick={logoutAction}
                 />
               </div>
             </menu>
