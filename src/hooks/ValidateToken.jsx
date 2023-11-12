@@ -2,7 +2,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const validateToken = async (accessToken, client, uid, setUserData, logout) => {
+export const validateToken = async (accessToken, client, uid, setUserData) => {
   const config = {
     headers: {
       "Content-type": "application/json",
@@ -18,7 +18,9 @@ export const validateToken = async (accessToken, client, uid, setUserData, logou
       config
     );
 
-    setUserData(response.data.data);
+    if (response.data.data.name !== "") {
+      setUserData(response.data.data);
+    }
 
     let accessTokenHeader = response.headers["access-token"];
 
@@ -29,6 +31,6 @@ export const validateToken = async (accessToken, client, uid, setUserData, logou
     return true;
   } catch (error) {
     console.log("Ocorreu um erro de validação: " + error);
-    logout();
+    Cookies.remove("isLoggedIn");
   }
 };
