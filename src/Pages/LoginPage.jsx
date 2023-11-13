@@ -112,7 +112,8 @@ function LoginPage() {
               <div className={styles.createACcountRedirect}>
                 <hr />
                 <p>
-                  Ainda não é cliente?<a href="#">Crie uma conta conosco</a> !
+                  Ainda não é cliente?
+                  <a href="/create-acc">Crie uma conta conosco</a> !
                 </p>
               </div>
             </div>
