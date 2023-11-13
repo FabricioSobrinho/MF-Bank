@@ -25,6 +25,13 @@
   font-size: 3rem;
   font-weight: 600;
 }
+.leftNavBar > a {
+  display: flex;
+  align-items: center;
+}
+.leftNavBar > a img {
+  width: 45%;
+}
 .rightNavBar {
   justify-content: flex-end;
   padding: 0 5%;

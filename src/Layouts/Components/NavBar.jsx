@@ -4,11 +4,16 @@ import styles from "../../Styles/NavBar.module.css";
 // import components
 import InputButton from "../FormsComponents/InputButton";
 
+// import images
+import logo from "../../assets/Images/MFLogo.svg";
+
 function NavBar() {
   return (
     <nav className={styles.mainNavBar}>
       <div className={styles.leftNavBar}>
-        <a href="/">Logo MF Bank</a>
+        <a href="/">
+          <img src={logo} alt="MF Bank logo" />
+        </a>
       </div>
       <div className={styles.rightNavBar}>
         <InputButton

@@ -12,12 +12,21 @@
   background: #141414;
   z-index: 9999;
 }
-a {
-    color: #f0f8ff;
-    font-size: 3.125rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+.mainLoggedNavBar > a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f0f8ff;
+  font-size: 3.125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 
-    text-decoration: none;
+  width: 30%;
+
+  text-decoration: none;
+}
+
+.mainLoggedNavBar > a img {
+  width: 75%;
 }
