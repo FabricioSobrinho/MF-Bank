@@ -17,7 +17,6 @@ function InputInsertData({
 }) {
   const [showingPass, setShowingPass] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [validEmail, setValidEmail] = useState(false);
   const isPassField = type === "password";
   const inputField = useRef(null);
 
@@ -36,22 +35,6 @@ function InputInsertData({
 
   const changePassVisibility = () => {
     setShowingPass(!showingPass);
-  };
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const emailCheck = () => {
-    if (type == "email") {
-      const isEmailValid = isValidEmail(inputField.current.value);
-
-      if (isEmailValid) {
-        setValidEmail(true);
-      }
-    }
   };
 
   return (
