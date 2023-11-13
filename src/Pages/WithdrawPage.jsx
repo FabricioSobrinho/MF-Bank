@@ -186,6 +186,7 @@ function WithdrawPage() {
               text="Cancelar operação"
               heightButton={5.125}
               widthButton={29}
+              route={"/view-account"}
             />
           </div>
         </div>

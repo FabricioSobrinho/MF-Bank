@@ -29,7 +29,7 @@ function ViewAccountPage() {
   const { user, setUserData, setBalance } = useUser();
   const { logout } = useLoggedIn();
 
-  const accessToken = Cookies.get("accessToken");
+  let accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
   const uid = Cookies.get("uid");
 
@@ -53,7 +53,7 @@ function ViewAccountPage() {
       );
 
       logout();
-      navigate("/");
+      window.open('/login', '_blank')
     } catch (error) {
       console.log("Houve um erro ao tentar fazer logout" + error);
     }

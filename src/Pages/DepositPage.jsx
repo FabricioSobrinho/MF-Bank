@@ -94,7 +94,7 @@ function DepositPage() {
         setErrors([[error]]);
       }
     } else {
-      setErrors([["Insira um montante para o depósito"]]);
+      setErrors([["Insira um montante válido para o depósito"]]);
     }
   };
 
@@ -226,6 +226,7 @@ function DepositPage() {
               text="Cancelar operação"
               heightButton={5.125}
               widthButton={29}
+              route={"/view-account"}
             />
           </div>
         </div>

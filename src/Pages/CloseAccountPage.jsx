@@ -16,6 +16,7 @@ import CloseAccountImage from "../assets/Images/close-account-image.svg";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import Loader from "../Layouts/Components/Loader";
+import Errors from "../Layouts/Components/Errors";
 
 // import dependencies
 import Cookies from "js-cookie";
@@ -29,6 +30,10 @@ function CloseAccountPage() {
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
   const uid = Cookies.get("uid");
+  
+  const [errors, setErrors] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -56,15 +61,15 @@ function CloseAccountPage() {
             config
           );
           logout();
-          navigate("/");
+          navigate("/", { state: { message: "Conta excluída com sucesso!" } });
         } catch (error) {
-          console.log("Houve um erro na exclusão da sua conta" + error);
+          setErrors([["Houve um erro ao excluir sua conta"]])
         }
       } else {
-        console.log("Senha incorreta");
+        setErrors([["Senha inválida"]]);
       }
     } catch (error) {
-      console.log(error);
+      setErrors([["Houve um erro ao tentar validar sua senha"]]);
     }
   };
 
@@ -72,9 +77,9 @@ function CloseAccountPage() {
     try {
       await validateToken(accessToken, client, uid, setUserData, logout);
       if (accessToken) {
-        // setIsLoading(false);
+        setIsLoading(false);
       } else {
-        // setIsLoading(true);
+        setIsLoading(true);
       }
     } catch (error) {
       console.log("Houve um erro de validação: " + error);
@@ -87,38 +92,45 @@ function CloseAccountPage() {
     validateTokenAuth();
   }, []);
   return (
-    <div className={styles.mainCloseAccountpage}>
-      <div className={styles.leftCloseAccountScreen}>
-        <div className={styles.topLeftCloseAccountScreen}>
-          <h1>Nos vemos em breve!</h1>
-          <p>Para confirmar o fechamento da sua conta insira sua senha:</p>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.mainCloseAccountpage}>
+          <div className={styles.leftCloseAccountScreen}>
+            <div className={styles.topLeftCloseAccountScreen}>
+              <h1>Nos vemos em breve!</h1>
+              <p>Para confirmar o fechamento da sua conta insira sua senha:</p>
+              {errors.length > 0 && <Errors errors={errors}/> }
 
-          <InputInsertData
-            heightInput={4.2}
-            widthInput={22.5}
-            text="Senha"
-            type="password"
-            name="closePass"
-            handleChange={handlePassword}
-          />
-        </div>
-        <div className={styles.bottomLeftCloseAccountScreen}>
-          <div className={styles.alert}>
-            Caso ainda tenha saldo em sua conta, se fechar sua conta irá perder
-            esse saldo!
+              <InputInsertData
+                heightInput={4.2}
+                widthInput={22.5}
+                text="Senha"
+                type="password"
+                name="closePass"
+                handleChange={handlePassword}
+              />
+            </div>
+            <div className={styles.bottomLeftCloseAccountScreen}>
+              <div className={styles.alert}>
+                Caso ainda tenha saldo em sua conta, se fechar sua conta irá
+                perder esse saldo!
+              </div>
+              <InputButton
+                heightButton={4.5}
+                widthButton={22.5}
+                text="CONFIRMAR EXCLUSÃO"
+                handleClick={deleteAccountAction}
+              />
+            </div>
           </div>
-          <InputButton
-            heightButton={4.5}
-            widthButton={22.5}
-            text="CONFIRMAR EXCLUSÃO"
-            handleClick={deleteAccountAction}
-          />
+          <div className={styles.rightCloseAccountScreen}>
+            <img src={CloseAccountImage} alt="exit image" />
+          </div>
         </div>
-      </div>
-      <div className={styles.rightCloseAccountScreen}>
-        <img src={CloseAccountImage} alt="exit image" />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

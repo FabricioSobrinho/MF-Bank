@@ -4,7 +4,7 @@ import styles from "../../Styles/LoggedNavBar.module.css";
 function LoggedNavBar() {
   return (
     <nav className={styles.mainLoggedNavBar}>
-      <a href="/">Logo MF-Bank</a>
+      <a href="/view-account">Logo MF-Bank</a>
     </nav>
   );
 }

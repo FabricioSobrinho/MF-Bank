@@ -1,20 +1,38 @@
-// import images to the page
+// import hooks
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLoggedIn } from "../hooks/LoggedProvider";
+
+// import images
 import initialScreenImage from "../assets/Images/initial-screen-image.svg";
 
-// import styles to the page
+// import styles
 import styles from "../Styles/InitialPage.module.css";
 
-// import elements to the page
+// import elements
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import CookiesAllow from "../Layouts/Components/CookiesAllow";
-
-// import hooks
-import { useLoggedIn } from "../hooks/LoggedProvider";
+import SuccessMessage from "../Layouts/Components/SuccessMessage";
 
 function InitialScreen() {
   const { isLoggedIn } = useLoggedIn();
+  const [message, setMessage] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state) {
+      setMessage(location.state.message);
+    }
+
+    setInterval(() => {
+      navigate({ state: { message: null } });
+      setMessage(null);
+    }, 3000);
+  }, []);
+
   return (
     <div className={styles.mainInitialPage}>
+      {message && <SuccessMessage message={message} />}
       <div className={styles.initialLeftPage}>
         <div className={styles.text}>
           <h1>Junte-se a nós, proteja seu patrimônio!</h1>

@@ -1,12 +1,9 @@
+// import styles
+import styles from "../../Styles/Button.module.css";
+
 // eslint-disable-next-line react/prop-types
-function InputButton({
-  text,
-  widthButton,
-  heightButton,
-  handleClick,
-  route,
-}) {
-  const styles = {
+function InputButton({ text, widthButton, heightButton, handleClick, route }) {
+  const buttonStyles = {
     height: `${heightButton}rem`,
     width: `${widthButton}rem`,
     margin: `0.8rem`,
@@ -26,8 +23,13 @@ function InputButton({
     cursor: "pointer",
   };
   return (
-    <a href={route}>
-      <input type="button" style={styles} onClick={handleClick} value={text} />
+    <a href={route} className={styles.buttonBox}>
+      <input
+        type="button"
+        style={buttonStyles}
+        onClick={handleClick}
+        value={text}
+      />
     </a>
   );
 }
