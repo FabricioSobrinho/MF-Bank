@@ -98,7 +98,7 @@ function ViewAccountPage() {
           <div className={styles.leftViewAccountPage}>
             <div className={styles.accInfo}>
               <p>Dados da conta:</p>
-              <p>Nome Titular: {user.name}</p>
+              <p>Nome Titular: {user.name} {user.sur_name}</p>
               <p>Saldo: {toFixedValue(user.balance)} R$</p>
               <p>Número da conta: {user.acc_number}</p>
             </div>
