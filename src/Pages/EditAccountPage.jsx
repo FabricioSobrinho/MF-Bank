@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../Styles/EditAccountPage.module.css";
 
 // import components
+import ValidationErrors from "../Layouts/Components/ValidationErrors";
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
 import Loader from "../Layouts/Components/Loader";
@@ -27,6 +28,7 @@ function EditAccountPage() {
     email: "",
     phone_number: "",
     uf: "",
+    password: "A",
   });
 
   const [errors, setErrors] = useState([]);
@@ -275,6 +277,8 @@ function EditAccountPage() {
                     handleClick={editAction}
                   />
                 )}
+                
+              <ValidationErrors userData={userUpdatedData} />
             </div>
           </div>
         </div>

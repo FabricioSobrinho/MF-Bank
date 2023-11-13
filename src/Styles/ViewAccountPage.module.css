@@ -47,3 +47,20 @@
   justify-content: center;
   margin-top: 5%;
 }
+
+@media (max-width: 425px) {
+  .mainViewAccountPage {
+    flex-direction: column;
+  }
+  .leftViewAccountPage,
+  .rightViewAccountPage {
+    width: 90vw;
+  }
+  .leftViewAccountPage {
+    margin-top: 20%;
+    background-color: #272727;
+  }
+  .menuTitle {
+    margin-top: 10%;
+  }
+}

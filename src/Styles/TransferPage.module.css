@@ -85,3 +85,18 @@
   font-weight: 400;
   line-height: normal;
 }
+
+@media (max-width: 425px) {
+  .MainTransferPage {
+    flex-direction: column;
+  }
+  .leftTransferScreen,
+  .rightTransferScreen {
+    width: 90vw;
+  }
+  .newBalanceView {
+    text-align: center;
+    background: none;
+    margin: 5%;
+  }
+}

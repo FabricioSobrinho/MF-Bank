@@ -70,3 +70,23 @@
   max-width: 100%;
   padding: 2%;
 }
+@media (max-width: 425px) {
+  .mainExtractPage {
+    flex-direction: column;
+  }
+  .leftExtractScreen {
+    position: relative;
+    top: 10%;
+    width: 90vw;
+  }
+  .rightExtractScreen {
+    position: relative;
+    left: 0;
+    top: 5%;
+    width: 90vw;
+  }
+
+  .rightExtractScreen > h1 {
+    margin-bottom: 5%;
+  }
+}

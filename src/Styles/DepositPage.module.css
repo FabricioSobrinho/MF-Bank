@@ -101,3 +101,18 @@
   font-weight: 400;
   line-height: normal;
 }
+
+@media (max-width: 425px) {
+  .MainDepositPage {
+    flex-direction: column;
+  }
+  .leftDepositScreen,
+  .rightDepositScreen {
+    width: 90vw;
+  }
+  .newBalanceView {
+    text-align: center;
+    background: none;
+    margin: 5%;
+  }
+}

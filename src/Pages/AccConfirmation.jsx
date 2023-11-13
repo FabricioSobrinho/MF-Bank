@@ -4,7 +4,8 @@ function AccConfirmation() {
     justifyContent: "center",
     alignItems: "center",
     fontSize: `3rem`,
-    padding: `20rem`
+    padding: `20rem`,
+    width: `95vw`,
   };
 
   return (

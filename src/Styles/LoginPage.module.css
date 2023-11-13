@@ -51,11 +51,35 @@
   align-items: center;
 }
 
-.createACcountRedirect a, .createACcountRedirect p {
-  margin: .5rem;
+.createACcountRedirect a,
+.createACcountRedirect p {
+  margin: 0.5rem;
   font-size: 1.7rem;
-  transition: .3s;
+  transition: 0.3s;
 }
 .createACcountRedirect a:hover {
   color: #898888;
+}
+
+@media (max-width: 425px) {
+  .mainLoginPage {
+    flex-direction: column;
+  }
+
+  .leftLoginScreen,
+  .rightLoginScreen {
+    width: 90vw;
+  }
+  .leftLoginScreen > img {
+    margin-top: 10%;
+    width: 50%;
+  }
+  .rightLoginScreen {
+    background: none;
+  }
+  .loginForm {
+    display: flex;
+    align-items: center;
+    height: 40vh;
+  }
 }

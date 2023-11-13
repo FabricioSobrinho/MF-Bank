@@ -17,10 +17,16 @@ function ValidationErrors({ userData }) {
   const validPassConfirmation =
     userData.password === userData.password_confirmation ? true : false;
 
-  const validPass = userData.password.length >= 8 ? true : false;
+  if (userData.password) {
+    var validPass = userData.password.length >= 8 ? true : false;
+  }
 
   const validPhoneNumber =
-    userData.phone_number && userData.phone_number[15] !== undefined && userData.phone_number[1] !== "0" ? true:false;
+    userData.phone_number &&
+    userData.phone_number[15] !== undefined &&
+    userData.phone_number[1] !== "0"
+      ? true
+      : false;
 
   const isValidBirthDate = (birthDate) => {
     birthDate = userData.date_birth.split("/");
@@ -35,7 +41,9 @@ function ValidationErrors({ userData }) {
     }
   };
 
-  const validBirthDate = userData.date_birth ? isValidBirthDate(userData.birthDate) : false;
+  const validBirthDate = userData.date_birth
+    ? isValidBirthDate(userData.birthDate)
+    : false;
 
   return (
     <div className={styles.mainErrors}>

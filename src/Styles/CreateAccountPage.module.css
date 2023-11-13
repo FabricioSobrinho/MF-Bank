@@ -47,3 +47,23 @@
 
   margin-top: 15%;
 }
+
+@media (max-width: 425px) {
+  .mainCreateAccountPage {
+    flex-direction: column;
+  }
+  .leftCreateAccountScreen,
+  .rightCreateAccountScreen {
+    width: 90vw;
+  }
+  .leftCreateAccountScreen > img {
+    position: relative;
+    margin-top: 15%;
+  }
+  .rightCreateAccountScreenContainer {
+    background: none;
+  }
+  .form {
+    margin: 3%;
+  }
+}
