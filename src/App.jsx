@@ -21,7 +21,6 @@ import TransferPage from "./Pages/TransferPage";
 import ExtractPage from "./Pages/ExtractPage";
 import EditAccountPage from "./Pages/EditAccountPage";
 import CloseAccountPage from "./Pages/CloseAccountPage";
-import AccConfirmation from "./Pages/AccConfirmation";
 import NotFoundPage from "./Pages/NotFoundPage";
 
 function App() {
@@ -61,7 +60,6 @@ function MainContent() {
             <Route path="/extract" element={<ExtractPage />} />
             <Route path="/edit" element={<EditAccountPage />} />
             <Route path="/close-account" element={<CloseAccountPage />} />
-            <Route path="/acc-confirmation" element={<AccConfirmation />} />
           </>
         )}
 
