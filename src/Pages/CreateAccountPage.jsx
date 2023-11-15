@@ -69,7 +69,9 @@ function CreateAccountScreen() {
       );
       setIsLoading(false);
 
-      if (response.status === 200) navigate("/acc-confirmation");
+      if (response.status === 200) {
+        navigate("/", { state: { message: "Conta criada com sucesso!" } });
+      }
     } catch (error) {
       setErrors([error.response.data.errors.full_messages]);
       setIsLoading(false);
@@ -148,6 +150,8 @@ function CreateAccountScreen() {
                   widthInput={22.5}
                   text="UF"
                   name="uf"
+                  mask={"**"}
+                  maskChar={""}
                   required
                   handleChange={setInputValue}
                 />
