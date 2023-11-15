@@ -70,7 +70,12 @@ function CreateAccountScreen() {
       setIsLoading(false);
 
       if (response.status === 200) {
-        navigate("/", { state: { message: "Conta criada com sucesso!" } });
+        navigate("/", {
+          state: {
+            message:
+              "Conta criada com sucesso, confirme sua conta e faça login!",
+          },
+        });
       }
     } catch (error) {
       setErrors([error.response.data.errors.full_messages]);
