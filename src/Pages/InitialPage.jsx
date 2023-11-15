@@ -1,6 +1,6 @@
 // import hooks
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useLoggedIn } from "../hooks/LoggedProvider";
 
 // import images
@@ -17,18 +17,21 @@ import SuccessMessage from "../Layouts/Components/SuccessMessage";
 function InitialScreen() {
   const { isLoggedIn } = useLoggedIn();
   const [message, setMessage] = useState();
+  const location = useLocation(); 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (location.state) {
-      setMessage(location.state.message);
-    }
+  if (location.state) {
+    useEffect(() => {
+      if (location.state) {
+        setMessage(location.state.message);
+      }
 
-    setInterval(() => {
-      navigate({ state: { message: null } });
-      setMessage(null);
-    }, 3000);
-  }, []);
+      setInterval(() => {
+        navigate({ state: { message: null } });
+        setMessage(null);
+      }, 3000);
+    }, []);
+  }
 
   return (
     <div className={styles.mainInitialPage}>
