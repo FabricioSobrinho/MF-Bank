@@ -11,6 +11,7 @@ import createAccountImage from "../assets/Images/create-account-screen-image.svg
 // import components
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
+import Date from "../Layouts/FormsComponents/Date";
 import Errors from "../Layouts/Components/Errors";
 import ValidationErrors from "../Layouts/Components/ValidationErrors";
 import Loader from "../Layouts/Components/Loader";
@@ -50,6 +51,27 @@ function CreateAccountScreen() {
     setUserData((prevUserData) => ({
       ...prevUserData,
       [e.target.name]: e.target.value,
+    }));
+  };
+
+  const updateDateOfBirth = (selectedDate) => {
+    const day =
+      selectedDate.getDate() < 10
+        ? "0" + selectedDate.getDate()
+        : selectedDate.getDate();
+
+    const month =
+      selectedDate.getMonth() < 9
+        ? "0" + (selectedDate.getMonth() + 1)
+        : selectedDate.getMonth() + 1;
+
+    const year = selectedDate.getFullYear();
+
+    const formattedDate = day + "/" + month + "/" + year;
+
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      date_birth: formattedDate,
     }));
   };
 
@@ -180,15 +202,10 @@ function CreateAccountScreen() {
                   required
                   handleChange={setInputValue}
                 />
-                <InputInsertData
-                  heightInput={4}
-                  widthInput={22.5}
-                  text="data de nascimento"
+                <Date
                   name="date_birth"
-                  mask={"99/99/9999"}
-                  maskChar={""}
-                  required
-                  handleChange={setInputValue}
+                  text="data de nascimento"
+                  updateDateBirth={updateDateOfBirth}
                 />
                 <InputInsertData
                   heightInput={4}
