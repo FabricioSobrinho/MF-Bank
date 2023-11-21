@@ -1,6 +1,8 @@
 // import hooks
 import { LoggedProvider, useLoggedIn } from "./hooks/LoggedProvider";
 import { UserProvider } from "./hooks/UserProvider";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 // import dependencies
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -45,27 +47,29 @@ function MainNavigation() {
 function MainContent() {
   const { isLoggedIn } = useLoggedIn();
   return (
-    <Container>
-      <Routes>
-        <Route path="/" element={<InitialPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/create-acc" element={<CreateAccountPage />} />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Container>
+        <Routes>
+          <Route path="/" element={<InitialPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/create-acc" element={<CreateAccountPage />} />
 
-        {isLoggedIn && (
-          <>
-            <Route path="/view-account" element={<ViewAccountPage />} />
-            <Route path="/withdraw" element={<WithdrawPage />} />
-            <Route path="/deposit" element={<DepositPage />} />
-            <Route path="/transfer" element={<TransferPage />} />
-            <Route path="/extract" element={<ExtractPage />} />
-            <Route path="/edit" element={<EditAccountPage />} />
-            <Route path="/close-account" element={<CloseAccountPage />} />
-          </>
-        )}
+          {isLoggedIn && (
+            <>
+              <Route path="/view-account" element={<ViewAccountPage />} />
+              <Route path="/withdraw" element={<WithdrawPage />} />
+              <Route path="/deposit" element={<DepositPage />} />
+              <Route path="/transfer" element={<TransferPage />} />
+              <Route path="/extract" element={<ExtractPage />} />
+              <Route path="/edit" element={<EditAccountPage />} />
+              <Route path="/close-account" element={<CloseAccountPage />} />
+            </>
+          )}
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Container>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Container>
+    </LocalizationProvider>
   );
 }
 
