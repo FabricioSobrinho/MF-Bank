@@ -23,10 +23,12 @@
   line-height: normal;
 
   width: 30%;
+  height: 100%;
 
   text-decoration: none;
 }
 
 .mainLoggedNavBar > a img {
-  width: 75%;
+  width: 35%;
+
 }
