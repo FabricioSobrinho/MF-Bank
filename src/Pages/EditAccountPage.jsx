@@ -16,6 +16,7 @@ import Errors from "../Layouts/Components/Errors";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { cpf } from "cpf-cnpj-validator";
+import DateInput from "../Layouts/FormsComponents/DateInput";
 
 function EditAccountPage() {
   const [userUpdatedData, setUserUpdatedData] = useState({
@@ -30,6 +31,8 @@ function EditAccountPage() {
     uf: "",
     password: "A",
   });
+
+  const [validDateBirth, setValidDateBirth] = useState(true);
 
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -137,6 +140,35 @@ function EditAccountPage() {
     }
   };
 
+  const handleDate = (date) => {
+    const validDateInterval =
+      date["$y"] >= 1900 && date["$y"] <= new Date().getFullYear()
+        ? true
+        : false;
+
+    const day =
+      date["$d"].getDate() < 10
+        ? "0" + date["$d"].getDate()
+        : date["$d"].getDate();
+
+    const month =
+      date["$d"].getMonth() < 9
+        ? "0" + (date["$d"].getMonth() + 1)
+        : date["$d"].getMonth() + 1;
+
+    const year = date["$d"].getFullYear();
+    const formattedDate = day + "/" + month + "/" + year;
+
+    if (userUpdatedData.date_birth !== formattedDate) {
+      setUserUpdatedData((prevUserData) => ({
+        ...prevUserData,
+        date_birth: formattedDate,
+      }));
+    }
+
+    setValidDateBirth(validDateInterval);
+  };
+
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
@@ -204,6 +236,10 @@ function EditAccountPage() {
                 handleChange={handleData}
                 required
               />
+              <DateInput
+                handleChange={handleDate}
+                value={userUpdatedData.date_birth}
+              />
               <InputInsertData
                 heightInput={4.2}
                 widthInput={22.5}
@@ -225,17 +261,6 @@ function EditAccountPage() {
                 value={userUpdatedData.cpf}
                 handleChange={handleData}
                 required
-              />
-              <InputInsertData
-                heightInput={4}
-                widthInput={22.5}
-                text="data de nascimento"
-                name="date_birth"
-                mask={"99/99/9999"}
-                maskChar={""}
-                value={userUpdatedData.date_birth}
-                required
-                handleChange={handleData}
               />
               <InputInsertData
                 heightInput={4.2}
@@ -263,11 +288,11 @@ function EditAccountPage() {
                 userUpdatedData.acc_number &&
                 userUpdatedData.cep &&
                 userUpdatedData.cpf &&
-                userUpdatedData.date_birth &&
                 userUpdatedData.email &&
                 userUpdatedData.phone_number &&
                 userUpdatedData.uf &&
                 validCpf &&
+                validDateBirth &&
                 validPhoneNumber &&
                 isValidEmail(userUpdatedData.email) && (
                   <InputButton
@@ -277,7 +302,7 @@ function EditAccountPage() {
                     handleClick={editAction}
                   />
                 )}
-                
+
               <ValidationErrors userData={userUpdatedData} />
             </div>
           </div>

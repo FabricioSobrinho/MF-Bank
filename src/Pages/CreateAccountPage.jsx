@@ -11,7 +11,7 @@ import createAccountImage from "../assets/Images/create-account-screen-image.svg
 // import components
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
-import Date from "../Layouts/FormsComponents/Date";
+import DateInput from "../Layouts/FormsComponents/DateInput";
 import Errors from "../Layouts/Components/Errors";
 import ValidationErrors from "../Layouts/Components/ValidationErrors";
 import Loader from "../Layouts/Components/Loader";
@@ -23,6 +23,8 @@ import { cpf } from "cpf-cnpj-validator";
 function CreateAccountScreen() {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [validDateBirth, setValidDateBirth] = useState();
 
   const navigate = useNavigate();
 
@@ -54,25 +56,32 @@ function CreateAccountScreen() {
     }));
   };
 
-  const updateDateOfBirth = (selectedDate) => {
-    const day =
-      selectedDate.getDate() < 10
-        ? "0" + selectedDate.getDate()
-        : selectedDate.getDate();
+  const handleDate = (date) => {
+    const validDateInterval =
+      date["$y"] >= 1900 && date["$y"] <= new Date().getFullYear()
+        ? true
+        : false;
 
-    const month =
-      selectedDate.getMonth() < 9
-        ? "0" + (selectedDate.getMonth() + 1)
-        : selectedDate.getMonth() + 1;
+      const day =
+        date["$d"].getDate() < 10
+          ? "0" + date["$d"].getDate()
+          : date["$d"].getDate();
 
-    const year = selectedDate.getFullYear();
+      const month =
+        date["$d"].getMonth() < 9
+          ? "0" + (date["$d"].getMonth() + 1)
+          : date["$d"].getMonth() + 1;
 
-    const formattedDate = day + "/" + month + "/" + year;
+      const year = date["$d"].getFullYear();
+      const formattedDate = day + "/" + month + "/" + year;
 
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      date_birth: formattedDate,
-    }));
+      if (userData.date_birth !== formattedDate) {
+        setUserData((prevUserData) => ({
+          ...prevUserData,
+          date_birth: formattedDate,
+        }));
+      }
+    setValidDateBirth(validDateInterval);
   };
 
   const sentAccount = async () => {
@@ -127,7 +136,7 @@ function CreateAccountScreen() {
           <div className={styles.leftCreateAccountScreen}>
             <img src={createAccountImage} />
           </div>
-          <div className={styles.rightCreateAccountScreen}>
+          <form className={styles.rightCreateAccountScreen} action="/">
             <div className={styles.rightCreateAccountScreenContainer}>
               <div className={styles.form}>
                 {errors.length > 0 && <Errors errors={errors} />}
@@ -135,7 +144,6 @@ function CreateAccountScreen() {
                   <h1>INSIRA SEUS DADOS</h1>
                   <p>* campos obrigatórios</p>
                 </div>
-
                 <InputInsertData
                   heightInput={4}
                   widthInput={22.5}
@@ -202,11 +210,9 @@ function CreateAccountScreen() {
                   required
                   handleChange={setInputValue}
                 />
-                <Date
-                  name="date_birth"
-                  text="data de nascimento"
-                  updateDateBirth={updateDateOfBirth}
-                />
+
+                <DateInput handleChange={handleDate} />
+
                 <InputInsertData
                   heightInput={4}
                   widthInput={22.5}
@@ -235,6 +241,7 @@ function CreateAccountScreen() {
                   userData.password === userData.password_confirmation &&
                   userData.password.length >= 8 &&
                   validCpf &&
+                  validDateBirth && 
                   validPhoneNumber && (
                     <InputButton
                       heightButton={5.5}
@@ -246,7 +253,7 @@ function CreateAccountScreen() {
                 <ValidationErrors userData={userData} />
               </div>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </>
