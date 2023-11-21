@@ -1,6 +1,7 @@
 .mainEditAccountPage {
     display: flex;
     justify-content: center;
+    height: 110vh;
 }
 
 .formContainer {
@@ -9,7 +10,7 @@
     justify-content: center;
     align-items: center;
     width: 63rem;
-    height: 100vh;
+    height: 100%;
     background: #202020;
 }
 
@@ -18,7 +19,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10%;
 }
 .form {
     display: flex;
