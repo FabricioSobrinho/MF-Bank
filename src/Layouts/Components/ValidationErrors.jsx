@@ -34,7 +34,7 @@ function ValidationErrors({ userData }) {
     let now_date = new Date();
     let born_year = birthDate[2];
 
-    if (born_year > now_date.getFullYear()) {
+    if (born_year > now_date.getFullYear() || born_year < 1900) {
       return false;
     } else {
       return true;
@@ -47,6 +47,9 @@ function ValidationErrors({ userData }) {
 
   return (
     <div className={styles.mainErrors}>
+      {userData.sur_name && !userData.name && (
+        <p className={styles.error}>Insira um Nome.</p>
+      )}
       {userData.cpf && !validCpf && (
         <p className={styles.error}>Insira um cpf válido.</p>
       )}
@@ -56,7 +59,6 @@ function ValidationErrors({ userData }) {
       {userData.phone_number && !validPhoneNumber && (
         <p className={styles.error}>Insira um número de telefone válido.</p>
       )}
-      {/* { cepErr && <p className={styles.error}>Insira um email válido.</p>} */}
       {userData.password && !validPass && (
         <p className={styles.error}>
           Insira uma senha de no minimo 8 caracteres.
