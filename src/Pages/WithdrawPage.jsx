@@ -64,7 +64,7 @@ function WithdrawPage() {
               },
             };
             const response = await axios.post(
-              "http://localhost:3000/withdraw",
+              `${baseUrl}/withdraw`,
               withdrawMontant,
               config
             );
