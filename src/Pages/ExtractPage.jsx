@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { validateToken } from "../hooks/ValidateToken";
 import { useUser } from "../hooks/UserProvider";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/ExtractPage.module.css";
@@ -17,6 +18,8 @@ import axios from "axios";
 
 function ExtractPage() {
   const { user, setUserData } = useUser();
+
+  const {baseUrl} = useBaseUrl();
 
   const [accountMovements, setAccountMovements] = useState([]);
 
@@ -39,7 +42,7 @@ function ExtractPage() {
       };
 
       const response = await axios.get(
-        "http://localhost:3000/account_movements",
+        `${baseUrl}/account_movements`,
         config
       );
 

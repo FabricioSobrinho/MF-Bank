@@ -6,6 +6,7 @@ import { useUser } from "../hooks/UserProvider";
 import { GetBalance } from "../hooks/GetBalance";
 import { useNavigate } from "react-router-dom";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/DepositPage.module.css";
@@ -25,6 +26,8 @@ function DepositPage() {
   const [password, setPassword] = useState();
 
   const [errors, setErrors] = useState([]);
+
+  const { baseUrl } = useBaseUrl();
 
   const [depositAmount, setDepositAmount] = useState({
     deposit_amount: 0,
@@ -76,7 +79,7 @@ function DepositPage() {
             };
 
             const response = await axios.post(
-              "http://localhost:3000/deposit",
+              `${baseUrl}/deposit`,
               depositData,
               config
             );

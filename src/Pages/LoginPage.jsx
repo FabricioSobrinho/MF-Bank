@@ -1,6 +1,7 @@
 // import hooks
 import { useState } from "react";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/LoginPage.module.css";
@@ -25,6 +26,8 @@ function LoginPage() {
 
   const [errors, setErrors] = useState([]);
 
+  const {baseUrl} = useBaseUrl();
+
   const { login } = useLoggedIn();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -47,7 +50,7 @@ function LoginPage() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth/sign_in",
+        `${baseUrl}/auth/sign_in`,
         loginData,
         config
       );

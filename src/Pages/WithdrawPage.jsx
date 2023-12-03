@@ -6,6 +6,7 @@ import { GetBalance } from "../hooks/GetBalance";
 import { ValidatePassword } from "../hooks/ValidatePassword";
 import { useNavigate } from "react-router-dom";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/WithdrawPage.module.css";
@@ -31,6 +32,7 @@ function WithdrawPage() {
   const [password, setPassword] = useState();
 
   const [errors, setErrors] = useState([]);
+  const {baseUrl} = useBaseUrl();
 
   const [isLoading, setIsLoading] = useState(true);
 

@@ -17,7 +17,7 @@ export const ValidatePassword = async (accessToken, client, uid, password) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:3000/password_validations/create",
+      "https://mf-bank-api-production.up.railway.app/password_validations/create",
       data,
       config
     );

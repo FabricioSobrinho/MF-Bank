@@ -1,6 +1,7 @@
 // import hooks
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/EditAccountPage.module.css";
@@ -36,6 +37,8 @@ function EditAccountPage() {
 
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const { baseUrl } = useBaseUrl();
 
   const [password, setPassword] = useState();
 
@@ -80,11 +83,7 @@ function EditAccountPage() {
         current_password: password,
       };
 
-      const response = await axios.put(
-        "http://localhost:3000/auth",
-        editData,
-        config
-      );
+      const response = await axios.put(`${baseUrl}/auth`, editData, config);
 
       let accessTokenHeader = response.headers["access-token"];
       let uidHeader = response.headers.uid;
@@ -122,7 +121,7 @@ function EditAccountPage() {
       };
 
       const response = await axios.get(
-        "http://localhost:3000/auth/validate_token",
+        `${baseUrl}/auth/validate_token`,
         config
       );
 

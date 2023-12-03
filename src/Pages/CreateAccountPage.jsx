@@ -1,6 +1,7 @@
 // import hooks
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/CreateAccountPage.module.css";
@@ -23,6 +24,8 @@ import { cpf } from "cpf-cnpj-validator";
 function CreateAccountScreen() {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { baseUrl } = useBaseUrl();
 
   const [validDateBirth, setValidDateBirth] = useState();
 
@@ -94,7 +97,7 @@ function CreateAccountScreen() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/auth",
+        `${baseUrl}/auth`,
         userData,
         config
       );

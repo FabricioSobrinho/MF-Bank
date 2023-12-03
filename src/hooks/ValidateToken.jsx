@@ -14,7 +14,7 @@ export const validateToken = async (accessToken, client, uid, setUserData) => {
 
   try {
     const response = await axios.get(
-      "http://localhost:3000/auth/validate_token",
+      "https://mf-bank-api-production.up.railway.app/auth/validate_token",
       config
     );
 

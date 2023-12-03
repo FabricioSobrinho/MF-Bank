@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ValidatePassword } from "../hooks/ValidatePassword";
 import { useLoggedIn } from "../hooks/LoggedProvider";
 import { useUser } from "../hooks/UserProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/CloseAccountPage.module.css";
@@ -26,6 +27,8 @@ function CloseAccountPage() {
   const { logout } = useLoggedIn();
   const { user, setUserData } = useUser();
   const [password, setPassword] = useState();
+
+  const { baseUrl } = useBaseUrl();
 
   const accessToken = Cookies.get("accessToken");
   const client = Cookies.get("client");
@@ -57,9 +60,10 @@ function CloseAccountPage() {
           };
 
           const response = await axios.delete(
-            "http://localhost:3000/auth",
+            `${baseUrl}/auth`,
             config
           );
+
           logout();
           navigate("/", { state: { message: "Conta excluída com sucesso!" } });
         } catch (error) {

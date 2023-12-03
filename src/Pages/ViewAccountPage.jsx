@@ -5,6 +5,7 @@ import { validateToken } from "../hooks/ValidateToken";
 import { GetBalance } from "../hooks/GetBalance";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/ViewAccountPage.module.css";
@@ -25,6 +26,7 @@ function ViewAccountPage() {
   const [message, setMessage] = useState(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const {baseUrl} = useBaseUrl();
 
   const { user, setUserData, setBalance } = useUser();
   const { logout } = useLoggedIn();
@@ -48,7 +50,7 @@ function ViewAccountPage() {
       };
 
       const response = await axios.delete(
-        "http://localhost:3000/auth/sign_out",
+        `${baseUrl}/auth/sign_out`,
         config
       );
 

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { GetBalance } from "../hooks/GetBalance";
 import { useUser } from "../hooks/UserProvider";
 import { useLoggedIn } from "../hooks/LoggedProvider";
+import { useBaseUrl } from "../hooks/useBaseUrl";
 
 // import styles
 import styles from "../Styles/TransferPage.module.css";
@@ -26,6 +27,7 @@ function TransferPage() {
   const navigate = useNavigate();
 
   const [password, setPassword] = useState("");
+  const {baseUrl} = useBaseUrl();
 
   const [transferAmount, setTransferAmount] = useState({
     transfer_amount: 0,
@@ -70,7 +72,7 @@ function TransferPage() {
             };
 
             const response = await axios.post(
-              "http://localhost:3000/transfer",
+              `${baseUrl}/transfer`,
               transferData,
               config
             );
