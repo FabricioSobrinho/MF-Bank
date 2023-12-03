@@ -1,5 +1,4 @@
 // import hooks
-
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -14,7 +13,10 @@ export const GetBalance = async (accessToken, client, uid, setBalance) => {
   };
 
   try {
-    const response = await axios.get("http://localhost:3000/balances", config);
+    const response = await axios.get(
+      "https://mf-bank-api-production.up.railway.app/balances",
+      config
+    );
 
     let accessTokenHeader = response.headers["access-token"];
 
