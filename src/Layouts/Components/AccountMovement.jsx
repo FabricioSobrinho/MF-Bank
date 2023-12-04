@@ -16,6 +16,10 @@ function AccountMovement({ accMove }) {
     return dateUtc.toLocaleString("pt-BR", options);
   };
 
+  const toFixedValue = (value) => {
+    return parseFloat(value).toFixed(2);
+  };
+
   return (
     <div className={styles.accountMovement}>
       <span>Data: {formatDate(accMove.created_at)}</span>
@@ -28,7 +32,7 @@ function AccountMovement({ accMove }) {
       )}
       <div className={styles.montant}> Valor: {accMove.montant} </div>
       {accMove.target !== null && (
-        <div className={styles.target}>Destinatário: {accMove.target} </div>
+        <div className={styles.target}>Destinatário: {toFixedValue(accMove.target)} </div>
       )}
     </div>
   );
