@@ -75,9 +75,7 @@
     flex-direction: column;
   }
   .leftExtractScreen {
-    position: relative;
-    top: 10%;
-    width: 90vw;
+    display: none;
   }
   .rightExtractScreen {
     position: relative;
