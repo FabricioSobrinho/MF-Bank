@@ -2,8 +2,7 @@
 
 <h1 align="center"> MF BANK </h1>
 
-~Imagem~
-
+<img src="./public/MF-Bank-Image.png"/>
 
 ### [Badges](#badges)
 
