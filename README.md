@@ -21,7 +21,7 @@ MF Bank é um projeto desenvolvido com o intuito de criar um sistema bancário f
 ### [Status do Projeto](#status-do-Projeto)
 
 <h2 align="center"> 
-    🚧 Projeto em construção 🚧
+    Projeto operante
 </h2>
 
 ### [Funcionalidades e Demonstração da Aplicação](#funcionalidades-e-demonstração-da-aplicação)
@@ -38,7 +38,7 @@ As funcionalidades do banco serão baseadas nas funcionalidades básicas de um s
 
 ### Para acessar o projeto basta clicar no link abaixo e criar sua conta!
 
-<a href="#">
+<a href="https://mf-bank.vercel.app">
 
   - `Clique aqui para conferir!`
 
