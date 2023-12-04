@@ -30,7 +30,7 @@ function AccountMovement({ accMove }) {
       {accMove.sender !== null && (
         <div className={styles.seender}> Remetente: {accMove.sender} </div>
       )}
-      <div className={styles.montant}> Valor: {accMove.montant} </div>
+      <div className={styles.montant}> Valor: {accMove.montant} R$</div>
       {accMove.target !== null && (
         <div className={styles.target}>Destinatário: {toFixedValue(accMove.target)} </div>
       )}
