@@ -109,8 +109,6 @@ function LoginPage() {
                   widthButton={20}
                   handleClick={loginUser}
                 />
-
-                <ValidationErrors userData={loginData} />
               </div>
               <div className={styles.createACcountRedirect}>
                 <hr />
