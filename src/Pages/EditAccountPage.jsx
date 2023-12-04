@@ -16,7 +16,6 @@ import Errors from "../Layouts/Components/Errors";
 // import dependencies
 import Cookies from "js-cookie";
 import axios from "axios";
-import { cpf } from "cpf-cnpj-validator";
 import DateInput from "../Layouts/FormsComponents/DateInput";
 
 function EditAccountPage() {
@@ -25,7 +24,6 @@ function EditAccountPage() {
     sur_name: "",
     acc_number: "",
     cep: "",
-    cpf: "",
     date_birth: "",
     email: "",
     phone_number: "",
@@ -48,7 +46,6 @@ function EditAccountPage() {
   const client = Cookies.get("client");
   const uid = Cookies.get("uid");
 
-  const validCpf = cpf.isValid(userUpdatedData.cpf);
   const validPhoneNumber =
     userUpdatedData.phone_number &&
     userUpdatedData.phone_number[15] !== undefined &&
@@ -75,7 +72,6 @@ function EditAccountPage() {
         name: userUpdatedData.name,
         sur_name: userUpdatedData.sur_name,
         cep: userUpdatedData.cep,
-        cpf: userUpdatedData.cpf,
         date_birth: userUpdatedData.date_birth,
         email: userUpdatedData.email,
         phone_number: userUpdatedData.phone_number,
@@ -253,17 +249,6 @@ function EditAccountPage() {
               <InputInsertData
                 heightInput={4.2}
                 widthInput={22.5}
-                text="CPF"
-                name="cpf"
-                mask="999.999.999.99"
-                maskChar={""}
-                value={userUpdatedData.cpf}
-                handleChange={handleData}
-                required
-              />
-              <InputInsertData
-                heightInput={4.2}
-                widthInput={22.5}
                 text="Email"
                 name="email"
                 type="email"
@@ -286,11 +271,9 @@ function EditAccountPage() {
                 userUpdatedData.sur_name &&
                 userUpdatedData.acc_number &&
                 userUpdatedData.cep &&
-                userUpdatedData.cpf &&
                 userUpdatedData.email &&
                 userUpdatedData.phone_number &&
                 userUpdatedData.uf &&
-                validCpf &&
                 validDateBirth &&
                 validPhoneNumber &&
                 isValidEmail(userUpdatedData.email) && (
