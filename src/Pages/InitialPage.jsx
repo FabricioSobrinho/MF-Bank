@@ -29,7 +29,7 @@ function InitialScreen() {
       setInterval(() => {
         navigate({ state: { message: null } });
         setMessage(null);
-      }, 3000);
+      }, 99000);
     }, []);
   }
 
