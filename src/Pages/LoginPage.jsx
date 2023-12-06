@@ -66,7 +66,6 @@ function LoginPage() {
     } catch (error) {
       setIsLoading(false);
       setErrors([["Usuario ou senha incorretos, tente novamente"]]);
-      setErrors([...errors, [error.response.data.errors]]);
     }
   };
 
