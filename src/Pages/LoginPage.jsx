@@ -12,7 +12,6 @@ import loginScreenImage from "../assets/Images/login-screen-image.svg";
 // import components
 import InputInsertData from "../Layouts/FormsComponents/InputInsertData";
 import InputButton from "../Layouts/FormsComponents/InputButton";
-import ValidationErrors from "../Layouts/Components/ValidationErrors";
 import Loader from "../Layouts/Components/Loader";
 import Errors from "../Layouts/Components/Errors";
 
@@ -67,6 +66,7 @@ function LoginPage() {
     } catch (error) {
       setIsLoading(false);
       setErrors([["Usuario ou senha incorretos, tente novamente"]]);
+      console.log(error);
     }
   };
 
